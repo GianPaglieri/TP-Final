@@ -1,0 +1,44 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+    ViewData["Title"] = "Login";
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/styles.css" />
+</head>
+
+<body>
+    <div class="box">
+        <img src="~/imgs/avatar-user.png" class="avatar">
+        <h1>Login</h1>
+        @if (ViewData["message"] != null)
+        {
+            <div class="text-danger my-2 py-1">
+                @ViewData["message"]
+            </div>
+        }
+        <form action="Login" method="post" class="from-horizontal">
+            <!--action="Home"-->
+            <div class="form-group">
+
+                <input type="dni" class="form-control" id="dni" name="dni" placeholder="Dni">
+                <input type="password" class="form-control" id="password" name="password" placeholder="@("Contraseña")">
+
+                <button type="submit" class="btn btn-primary btn-xs" name="login">@("Entrar")</button>
+            </div>
+        </form>
+        <button type="button" class="btn btn-primary btn-xs" onclick="location.href='@Url.Action("Create", "Usuarios")'">@("Registrarse")</button>
+    </div>
+</body>
+
+</html>
