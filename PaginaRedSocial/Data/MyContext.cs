@@ -20,6 +20,7 @@ using System.Reflection;
 using Microsoft.Extensions.Options;
 using PaginaRedSocial.Models;
 using PaginaRedSocial;
+using PaginaRedSocial.Helpers;
 
 namespace PaginaRedSocial.Data
 {
@@ -146,18 +147,14 @@ namespace PaginaRedSocial.Data
 
             modelBuilder.Entity<User>()
             .HasData(
-            new User { Id = 1, Nombre = "Juan", Dni = 45454, Email = "aaa", Bloqueado = false, IsAdmin = false, Password = "123", Intentos = 0 }
+            new User { Id = 1, Nombre = "Juan", Dni = 45454, Email = "admin@gmail.com", Bloqueado = false, IsAdmin = false, Password = Utils.Encriptar("123"), Intentos = 0 }
             ,
-            new User { Id = 2, Nombre = "Juan", Dni = 123123, Email = "aaa", Bloqueado = false, IsAdmin = true, Password = "123", Intentos = 0 }
+            new User { Id = 2, Nombre = "Juan", Dni = 123123, Email = "aaa", Bloqueado = false, IsAdmin = true, Password = Utils.Encriptar("123"), Intentos = 0 }
             );
             modelBuilder.Entity<Post>()
                .HasData(
                new Post { Id = 1, Contenido = "Juan", Fecha = "12/12/1222", UserId = 1 }
                );
-            
-
-
-
         }
 
 

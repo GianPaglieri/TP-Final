@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PaginaRedSocial.Data;
 using PaginaRedSocial.Models;
+using PaginaRedSocial.Helpers;
+
 
 namespace PaginaRedSocial.Controllers
 {
@@ -58,6 +60,7 @@ namespace PaginaRedSocial.Controllers
         {
             if (ModelState.IsValid)
             {
+                user.Password = Utils.Encriptar(user.Password);
                 _context.Add(user);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
