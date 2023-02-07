@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using System.Media;
 using PaginaRedSocial.Data;
+using PaginaRedSocial.Helpers;
 
 namespace PaginaRedSocial.Controllers
 {
@@ -38,7 +39,7 @@ namespace PaginaRedSocial.Controllers
         {
             // Validar el DNI
             var usuario = this._context.Usuarios.Where(user => user.Dni == dni).FirstOrDefault();
-            /*var passwordEncriptada = Utils.Encriptar(password);*/
+            var passwordEncriptada = Utils.Encriptar(password);
 
             // Valido el DNI
             if (usuario == null)
@@ -55,7 +56,7 @@ namespace PaginaRedSocial.Controllers
             }
 
             // Validar la contraseña e Incrementar intentos.
-           /* if (usuario.Password != passwordEncriptada)
+            if (usuario.Password != passwordEncriptada)
             {
                 usuario.Intentos++;
 
@@ -63,14 +64,13 @@ namespace PaginaRedSocial.Controllers
                 if (usuario.Intentos >= 3)
                     usuario.Bloqueado = true;
 
-                usuario.Intentos = 0;
+                //usuario.Intentos = 0;
                 this._context.Update(usuario);
                 this._context.SaveChanges();
 
-                this._soundPlayer = new SoundPlayer("Resources/ErrorSound.wav");
-                this._soundPlayer.Play();
+               
                 return Redirect("/Login?message=La-clave-ingresada-es-incorrecta");
-            }*/
+            }
 
             // LOGEO AL USUARIO
             var claims = new List<Claim>
