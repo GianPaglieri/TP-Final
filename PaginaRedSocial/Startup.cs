@@ -44,8 +44,8 @@ namespace PaginaRedSocial
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                     .AddCookie(options =>
                     {
-                        options.LoginPath = "/Views/Login/Index";
-                        options.AccessDeniedPath = "/Login";
+                        options.LoginPath = "/Login";
+                        options.AccessDeniedPath = "/Home";
                     });
             // --------------------------------------------------------------
 

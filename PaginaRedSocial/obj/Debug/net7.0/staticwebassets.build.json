@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "AvPZoK8osGoervI18Rn2kZHqnqd7HtIeZblUnekENB8=",
+  "Hash": "r+29muBapF/GZ9VAN9gLUxKR3iQf2wZ1nMZPHjFV5Yg=",
   "Source": "PaginaRedSocial",
   "BasePath": "_content/PaginaRedSocial",
   "Mode": "Default",
@@ -68,6 +68,23 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
+      "Identity": "C:\\Users\\Gian\\Desktop\\Sistemas\\cuarto\\Plataforma de desarrollo\\2023\\PaginaRedSocial\\PaginaRedSocial\\wwwroot\\css\\Styles.css",
+      "SourceId": "PaginaRedSocial",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Gian\\Desktop\\Sistemas\\cuarto\\Plataforma de desarrollo\\2023\\PaginaRedSocial\\PaginaRedSocial\\wwwroot\\",
+      "BasePath": "_content/PaginaRedSocial",
+      "RelativePath": "css/Styles.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\Styles.css"
+    },
+    {
       "Identity": "C:\\Users\\Gian\\Desktop\\Sistemas\\cuarto\\Plataforma de desarrollo\\2023\\PaginaRedSocial\\PaginaRedSocial\\wwwroot\\favicon.ico",
       "SourceId": "PaginaRedSocial",
       "SourceType": "Discovered",
@@ -83,6 +100,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\Gian\\Desktop\\Sistemas\\cuarto\\Plataforma de desarrollo\\2023\\PaginaRedSocial\\PaginaRedSocial\\wwwroot\\imagenes\\login.png",
+      "SourceId": "PaginaRedSocial",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Gian\\Desktop\\Sistemas\\cuarto\\Plataforma de desarrollo\\2023\\PaginaRedSocial\\PaginaRedSocial\\wwwroot\\",
+      "BasePath": "_content/PaginaRedSocial",
+      "RelativePath": "imagenes/login.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\imagenes\\login.png"
+    },
+    {
+      "Identity": "C:\\Users\\Gian\\Desktop\\Sistemas\\cuarto\\Plataforma de desarrollo\\2023\\PaginaRedSocial\\PaginaRedSocial\\wwwroot\\imagenes\\registrar.png",
+      "SourceId": "PaginaRedSocial",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Gian\\Desktop\\Sistemas\\cuarto\\Plataforma de desarrollo\\2023\\PaginaRedSocial\\PaginaRedSocial\\wwwroot\\",
+      "BasePath": "_content/PaginaRedSocial",
+      "RelativePath": "imagenes/registrar.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\imagenes\\registrar.png"
     },
     {
       "Identity": "C:\\Users\\Gian\\Desktop\\Sistemas\\cuarto\\Plataforma de desarrollo\\2023\\PaginaRedSocial\\PaginaRedSocial\\wwwroot\\js\\site.js",

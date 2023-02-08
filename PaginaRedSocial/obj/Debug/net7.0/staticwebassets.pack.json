@@ -5,12 +5,24 @@
       "PackagePath": "staticwebassets\\PaginaRedSocial.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\Gian\\Desktop\\Sistemas\\cuarto\\Plataforma de desarrollo\\2023\\PaginaRedSocial\\PaginaRedSocial\\wwwroot\\css\\Styles.css",
+      "PackagePath": "staticwebassets\\css\\Styles.css"
+    },
+    {
       "Id": "C:\\Users\\Gian\\Desktop\\Sistemas\\cuarto\\Plataforma de desarrollo\\2023\\PaginaRedSocial\\PaginaRedSocial\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
       "Id": "C:\\Users\\Gian\\Desktop\\Sistemas\\cuarto\\Plataforma de desarrollo\\2023\\PaginaRedSocial\\PaginaRedSocial\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\Gian\\Desktop\\Sistemas\\cuarto\\Plataforma de desarrollo\\2023\\PaginaRedSocial\\PaginaRedSocial\\wwwroot\\imagenes\\login.png",
+      "PackagePath": "staticwebassets\\imagenes\\login.png"
+    },
+    {
+      "Id": "C:\\Users\\Gian\\Desktop\\Sistemas\\cuarto\\Plataforma de desarrollo\\2023\\PaginaRedSocial\\PaginaRedSocial\\wwwroot\\imagenes\\registrar.png",
+      "PackagePath": "staticwebassets\\imagenes\\registrar.png"
     },
     {
       "Id": "C:\\Users\\Gian\\Desktop\\Sistemas\\cuarto\\Plataforma de desarrollo\\2023\\PaginaRedSocial\\PaginaRedSocial\\wwwroot\\js\\site.js",
