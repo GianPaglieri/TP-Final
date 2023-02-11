@@ -25,6 +25,14 @@ namespace PaginaRedSocial.Controllers
             var myContext = _context.Posts.Include(p => p.user);
             return View(await myContext.ToListAsync());
         }
+        public async Task<IActionResult> List()
+        {
+            var posts = from post in this._context.Posts.Include(r => r.Comentarios) select post;
+
+            posts = posts.Where(post => post.UserId == Int32.Parse(@User.Identity.Name));
+
+            return View(posts.ToList());
+        }
 
         // GET: Posts/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -165,4 +173,5 @@ namespace PaginaRedSocial.Controllers
             return _context.Posts.Any(e => e.Id == id);
         }
     }
+    
 }

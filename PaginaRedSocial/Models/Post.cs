@@ -22,6 +22,6 @@ namespace PaginaRedSocial.Models
         public ICollection<Tag> Tags { get; set; } = new List<Tag>();
         public List<PostTag> PostTags { get; set; }
 
-        public Post() { }
+        
     }
 }

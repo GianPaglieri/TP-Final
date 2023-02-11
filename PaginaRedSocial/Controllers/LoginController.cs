@@ -110,7 +110,7 @@ namespace PaginaRedSocial.Controllers
                 usuario.Intentos = 0;*/
                 this._context.Update(usuario);
                 this._context.SaveChanges();
-                return Redirect("/Posts/Index");
+                return Redirect("/Posts/List");
             }
         }
 

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<PaginaRedSocial.Models.Post>
+@{
+    ViewData["Title"] = "Home Page";
+}
+@if (Model == null)
+{
+    <span>no items found</span>
+}
+@if (ViewData["message"] != null)
+{
+    <!-- Mensaje al usuario -->
+    <div class="alert alert-danger" role="alert" id="alert-message-permisos">
+        <strong>@ViewData["message"]</strong>
+    </div>
+    <script type="text/javascript">
+        setTimeout(() => {
+            document.getElementById("alert-message-permisos").remove()
+        }, 4000)
+    </script>
+}
+<div class="row pt-4">
+    <div class="col-12">
+        <h1 class="text-center display-4">("Mis Post")</h1>
+    </div>
+</div>
+
+<hr class="my-3" />
+
+<div class="row row-cols-1 row-cols-md-2 ">
+    @foreach (var item in Model)
+    {
+        <div class="col-4 mb-4">
+            <div class="card shadow">
+                <div class="card-body">
+
+                    <p class="card-text text-capitalize mb-2 pb-0">
+                        Contenido: @item.Contenido
+                    </p>
+                     <p class="card-text text-capitalize mb-2 pb-0">
+                        Comentarios: @item.Comentarios
+                    </p>
+                     <p class="card-text text-capitalize mb-2 pb-0">
+                        Reacciones: @item.Reacciones
+                    </p>
+                     <p class="card-text text-capitalize mb-2 pb-0">
+                        Fecha: @item.Fecha
+                    </p>
+                    <p class="card-text text-capitalize mb-2 pb-0">
+                        IdPost: @item.Id
+                    </p>
+                    <div class="row justify-content-end">
+                        <a asp-route-id="@item.Id"
+                       asp-controller="Post"
+                       asp-action="Details"
+                       class="btn btn-success px-4 mr-3">
+                            <i class="fas fa-search"></i>
+                            ("Ver")
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
