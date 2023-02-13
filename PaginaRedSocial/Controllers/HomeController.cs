@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using PaginaRedSocial.Data;
 using PaginaRedSocial.Models;
 using System.Diagnostics;
 
@@ -7,15 +10,18 @@ namespace PaginaRedSocial.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly MyContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, MyContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
-            return View();
+            return View("/Views/Home/Usuarios/Index.cshtml");
         }
 
         public IActionResult Privacy()
