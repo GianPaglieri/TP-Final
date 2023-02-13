@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Gian\\Desktop\\Sistemas\\cuarto\\Plataforma de desarrollo\\2023\\PaginaRedSocial\\PaginaRedSocial\\PaginaRedSocial.csproj": {}
+    "C:\\Users\\Volten\\Source\\Repos\\TP-Final\\PaginaRedSocial\\PaginaRedSocial.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Gian\\Desktop\\Sistemas\\cuarto\\Plataforma de desarrollo\\2023\\PaginaRedSocial\\PaginaRedSocial\\PaginaRedSocial.csproj": {
+    "C:\\Users\\Volten\\Source\\Repos\\TP-Final\\PaginaRedSocial\\PaginaRedSocial.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Gian\\Desktop\\Sistemas\\cuarto\\Plataforma de desarrollo\\2023\\PaginaRedSocial\\PaginaRedSocial\\PaginaRedSocial.csproj",
+        "projectUniqueName": "C:\\Users\\Volten\\Source\\Repos\\TP-Final\\PaginaRedSocial\\PaginaRedSocial.csproj",
         "projectName": "PaginaRedSocial",
-        "projectPath": "C:\\Users\\Gian\\Desktop\\Sistemas\\cuarto\\Plataforma de desarrollo\\2023\\PaginaRedSocial\\PaginaRedSocial\\PaginaRedSocial.csproj",
-        "packagesPath": "C:\\Users\\Gian\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Gian\\Desktop\\Sistemas\\cuarto\\Plataforma de desarrollo\\2023\\PaginaRedSocial\\PaginaRedSocial\\obj\\",
+        "projectPath": "C:\\Users\\Volten\\Source\\Repos\\TP-Final\\PaginaRedSocial\\PaginaRedSocial.csproj",
+        "packagesPath": "C:\\Users\\Volten\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Volten\\Source\\Repos\\TP-Final\\PaginaRedSocial\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Gian\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Volten\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
