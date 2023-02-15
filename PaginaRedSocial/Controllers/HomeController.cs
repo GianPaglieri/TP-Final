@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PaginaRedSocial.Data;
@@ -22,6 +24,11 @@ namespace PaginaRedSocial.Controllers
         public IActionResult Index()
         {
             return View("/Views/Home/Usuarios/Index.cshtml");
+        }
+
+        public IActionResult Perfil() 
+        {
+            return View("/Views/Home/MyProfile/Index.cshtml");
         }
 
         public IActionResult Privacy()

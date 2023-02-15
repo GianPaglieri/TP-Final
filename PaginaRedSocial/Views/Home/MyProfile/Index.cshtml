@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<head>
+    <style>
+        body {
+           
+        }
+
+        .box{
+            width: 600px;
+            margin:auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <form>
+        <div class="col-mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="inputNombre" placeholder="Nombre...">
+        </div>
+        <div class="col-mb-3">
+            <label for="apellido" class="form-label">Apellido</label>
+            <input type="email" class="form-control" id="inputApellido" placeholder="Apellido...">
+        </div>
+        <div class="col-mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="inputEmail" placeholder="Email...">
+        </div>
+        <div class="col-mb-3">
+            <button type="submit" class="btn btn-primary">@("Editar")</button>
+        </div>
+    </form>
+        <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Create", "Users")'">@("Cambiar clave")</button>
+    </div>
+    
+</body>
+
