@@ -552,3 +552,6 @@ C:\Users\Volten\Source\Repos\TP-Final\PaginaRedSocial\obj\Debug\net7.0\refint\Pa
 C:\Users\Volten\Source\Repos\TP-Final\PaginaRedSocial\obj\Debug\net7.0\PaginaRedSocial.pdb
 C:\Users\Volten\Source\Repos\TP-Final\PaginaRedSocial\obj\Debug\net7.0\PaginaRedSocial.genruntimeconfig.cache
 C:\Users\Volten\Source\Repos\TP-Final\PaginaRedSocial\obj\Debug\net7.0\ref\PaginaRedSocial.dll
+C:\Users\Cecilia\Source\Repos\GianPaglieri\TP-Final\PaginaRedSocial\obj\Debug\net7.0\PaginaRedSocial.dll
+C:\Users\Cecilia\Source\Repos\GianPaglieri\TP-Final\PaginaRedSocial\obj\Debug\net7.0\refint\PaginaRedSocial.dll
+C:\Users\Cecilia\Source\Repos\GianPaglieri\TP-Final\PaginaRedSocial\obj\Debug\net7.0\PaginaRedSocial.pdb
