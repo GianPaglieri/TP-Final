@@ -33,7 +33,6 @@ namespace PaginaRedSocial.Controllers
                 .Where(user => user.Id != int.Parse(@User.Identity.Name))
                 .ToList();
             foreach (User user in users) {
-                System.Console.WriteLine("count amigos: " + userActual.misAmigos.Count);
                 if (userActual.misAmigos.Count > 0)
                 {
                     // busco en mis amigos el usuario filtrado, si el result da 0 significa que
@@ -47,7 +46,6 @@ namespace PaginaRedSocial.Controllers
                 }
                 else
                 {
-                    System.Console.WriteLine("Entró al else");
                     noAmigos.Add(user);
                 }
             }

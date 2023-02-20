@@ -177,8 +177,8 @@ namespace PaginaRedSocial.Controllers
             this._context.Usuarios.Update(userActual);
             this._context.Usuarios.Update(nuevoAmigo);
             this._context.SaveChanges();
-            
-            return View("/Views/Home/BuscarAmigos/Agregado.cshtml");
+
+            return Redirect("/Home/BuscarAmigos");
         }
 
     }
