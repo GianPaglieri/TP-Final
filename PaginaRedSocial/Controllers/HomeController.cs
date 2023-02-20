@@ -30,6 +30,34 @@ namespace PaginaRedSocial.Controllers
         {
             return View("/Views/Home/MyProfile/Index.cshtml");
         }
+        
+        [Authorize]
+        public async Task<IActionResult> BuscarAmigos()
+        {
+            var userActual = this._context.Usuarios.Include(u => u.misAmigos).Where(user => user.Id == int.Parse(@User.Identity.Name)).FirstOrDefault();
+            List<User> noAmigos = new List<User>();
+            var users = this._context.Usuarios.Where(user => user.IsAdmin != true)
+                .Where(user => user.Id != int.Parse(@User.Identity.Name))
+                .ToList();
+            foreach (User user in users) {
+                if (userActual.misAmigos.Count > 0)
+                {
+                    // busco en mis amigos el usuario filtrado, si el result da 0 significa que
+                    // el user no está en mis amigos
+                    int result = userActual.misAmigos.Where(ma => ma.AmigoId == user.Id).Count();
+                    
+                    if (result == 0)
+                    {
+                        noAmigos.Add(user);
+                    }
+                }
+                else
+                {
+                    noAmigos.Add(user);
+                }
+            }
+                return View("/Views/Home/BuscarAmigos/Index.cshtml", noAmigos);
+        }
 
         public IActionResult Privacy()
         {

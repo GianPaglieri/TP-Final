@@ -11,6 +11,57 @@
             background-color:#F2F2F2;
         }
 
+        .navbar-container {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: row;
+            justify-content:space-around;
+        }
+
+        .navbar-btn{
+            color: #fff;
+            padding: 7px;
+            border-radius: 15px;
+            width: 150px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .navbar-btn:hover {
+            color: #F2F2F2;
+        }
+
+        .add-friends-btn{
+            background-color: #45bd62;
+            border: 1px solid #45bd62;
+        }
+
+        .add-friends-btn:hover {
+            background-color: #72cb88;
+            border: 1px solid #72cb88;
+        }
+
+        .show-my-friends-btn {
+            background-color: #f5bd3b;
+            border: 1px solid #f5bd3b;
+        }
+
+        .show-my-friends-btn:hover {
+            background-color: #f4c455;
+            border: 1px solid #f4c455;
+        }
+
+        .my-post-btn {
+            background-color: #F02849;
+            border: 1px solid #F02849;
+        }
+
+        .my-post-btn:hover {
+            background-color: #f0536d;
+            border: 1px solid #f0536d;
+        }
+
+
         .new-post-container{
             padding: 20px;
             background-color: #FFF;
@@ -86,6 +137,17 @@
 </head>
 
 <body>
+        <div class="navbar-container">
+        <a class="navbar-btn add-friends-btn" asp-controller="Home" asp-action="BuscarAmigos">
+            Agregar amigos
+        </a>
+        <a class="navbar-btn show-my-friends-btn" asp-controller="Home" asp-action="MisAmigos">
+            Mis amigos
+        </a>
+        <a class="navbar-btn my-post-btn"  asp-controller="Home" asp-action="MisPosts">
+            Mis posts
+        </a>
+        </div>
         <div class="new-post-container">
             <textarea id="fname" name="fname" placeholder="¿En qué estás pensando?"></textarea>
             <button class="new-post-btn">Publicar</button>
