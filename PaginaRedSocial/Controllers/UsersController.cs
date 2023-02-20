@@ -160,5 +160,26 @@ namespace PaginaRedSocial.Controllers
         {
             return _context.Usuarios.Any(e => e.Id == id);
         }
+        // GET: Users/Delete/5
+        public async Task<IActionResult> AgregarAmigo()
+        {
+            string page = HttpContext.Request.Query["id"].ToString();
+            int id = Int16.Parse(page);            
+
+            var userActual = this._context.Usuarios.Where(user => user.Id == int.Parse(@User.Identity.Name)).FirstOrDefault();
+            var nuevoAmigo = this._context.Usuarios.Where(user => user.Id == id).FirstOrDefault();
+
+            UsuarioAmigo userAmigo = new UsuarioAmigo(userActual, nuevoAmigo);
+            UsuarioAmigo amigoUser = new UsuarioAmigo(nuevoAmigo, userActual);
+
+            userActual.misAmigos.Add(userAmigo);
+            nuevoAmigo.misAmigos.Add(amigoUser);
+            this._context.Usuarios.Update(userActual);
+            this._context.Usuarios.Update(nuevoAmigo);
+            this._context.SaveChanges();
+            
+            return View("/Views/Home/BuscarAmigos/Agregado.cshtml");
+        }
+
     }
 }
