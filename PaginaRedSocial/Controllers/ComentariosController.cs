@@ -20,8 +20,11 @@ namespace PaginaRedSocial.Controllers
         }
 
         // GET: Comentarios
+       
         public async Task<IActionResult> Index()
         {
+            if (!this._context.Usuarios.Find(int.Parse(User.Identity.Name)).IsAdmin)
+                return Redirect("/Comentarios/all?message=No-tenes-permiso-de-administrador");
             var myContext = _context.comentarios.Include(c => c.Post).Include(c => c.Usuario);
             return View(await myContext.ToListAsync());
         }

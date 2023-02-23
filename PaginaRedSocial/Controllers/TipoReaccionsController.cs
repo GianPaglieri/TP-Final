@@ -21,6 +21,8 @@ namespace PaginaRedSocial.Controllers
         // GET: TipoReaccions
         public async Task<IActionResult> Index()
         {
+            if (!this._context.Usuarios.Find(int.Parse(User.Identity.Name)).IsAdmin)
+                return Redirect("/TipoReacciones/all?message=No-tenes-permiso-de-administrador");
             return View(await _context.tiposReacciones.ToListAsync());
         }
 

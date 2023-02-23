@@ -24,6 +24,8 @@ namespace PaginaRedSocial.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
+            if (!this._context.Usuarios.Find(int.Parse(User.Identity.Name)).IsAdmin)
+                return Redirect("/Users/all?message=No-tenes-permiso-de-administrador");
             return View(await _context.Usuarios.ToListAsync());
         }
 
