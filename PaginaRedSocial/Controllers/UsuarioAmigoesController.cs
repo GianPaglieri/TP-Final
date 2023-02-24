@@ -22,6 +22,8 @@ namespace PaginaRedSocial.Controllers
         // GET: UsuarioAmigoes
         public async Task<IActionResult> Index()
         {
+            if (!this._context.Usuarios.Find(int.Parse(User.Identity.Name)).IsAdmin)
+                return Redirect("/UsuarioAmigoEs/all?message=No-tenes-permiso-de-administrador");
             var myContext = _context.UsuarioAmigo.Include(u => u.Amigo).Include(u => u.Usuario);
             return View(await myContext.ToListAsync());
         }

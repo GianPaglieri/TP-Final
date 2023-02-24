@@ -21,6 +21,8 @@ namespace PaginaRedSocial.Controllers
         // GET: Reaccions
         public async Task<IActionResult> Index()
         {
+            if (!this._context.Usuarios.Find(int.Parse(User.Identity.Name)).IsAdmin)
+                return Redirect("/Reaccions/all?message=No-tenes-permiso-de-administrador");
             var myContext = _context.reacciones.Include(r => r.Post).Include(r => r.TipoReaccion).Include(r => r.User);
             return View(await myContext.ToListAsync());
         }
