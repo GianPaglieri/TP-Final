@@ -211,13 +211,13 @@ namespace PaginaRedSocial.Migrations
                 values: new object[,]
                 {
                     { 1, false, 123123, "admin@gmail.com", 0, true, "Admin", "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3" },
-                    { 2, false, 12345678, "juan@gmail.com", 0, true, "Juan", "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3" }
+                    { 2, false, 12345678, "juan@gmail.com", 0, false, "Juan", "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Posts",
                 columns: new[] { "Id", "Contenido", "Fecha", "UserId" },
-                values: new object[] { 1, "post de Juan", new DateTime(2023, 2, 23, 23, 28, 22, 463, DateTimeKind.Local).AddTicks(2135), 1 });
+                values: new object[] { 1, "post de Juan", new DateTime(2023, 2, 24, 20, 30, 6, 888, DateTimeKind.Local).AddTicks(7566), 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comentarios_PostId",

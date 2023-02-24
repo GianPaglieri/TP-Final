@@ -153,7 +153,7 @@ namespace PaginaRedSocial.Data
             );
             modelBuilder.Entity<Post>()
                .HasData(
-               new Post { Id = 1, Contenido = "post de Juan", Fecha = DateTime.Now, UserId = 1 }
+               new Post { Id = 1, Contenido = "post de Juan", Fecha = DateTime.Now, UserId = 2 }
                );
         }
 

@@ -11,7 +11,7 @@ using PaginaRedSocial.Data;
 namespace PaginaRedSocial.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20230224022822_Initial")]
+    [Migration("20230224233007_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -75,8 +75,8 @@ namespace PaginaRedSocial.Migrations
                         {
                             Id = 1,
                             Contenido = "post de Juan",
-                            Fecha = new DateTime(2023, 2, 23, 23, 28, 22, 463, DateTimeKind.Local).AddTicks(2135),
-                            UserId = 1
+                            Fecha = new DateTime(2023, 2, 24, 20, 30, 6, 888, DateTimeKind.Local).AddTicks(7566),
+                            UserId = 2
                         });
                 });
 
@@ -168,7 +168,7 @@ namespace PaginaRedSocial.Migrations
                             Dni = 12345678,
                             Email = "juan@gmail.com",
                             Intentos = 0,
-                            IsAdmin = true,
+                            IsAdmin = false,
                             Nombre = "Juan",
                             Password = "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3"
                         });

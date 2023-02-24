@@ -166,5 +166,24 @@ namespace PaginaRedSocial.Controllers
         {
             return _context.Posts.Any(e => e.Id == id);
         }
+
+        [HttpPost]
+        public IActionResult CreatePost(Microsoft.AspNetCore.Http.IFormCollection collection)
+        {
+           
+                Console.WriteLine("Entró a createPost: " + collection["postContent"]);
+                int userId = int.Parse(@User.Identity.Name);
+                var userActual = this._context.Usuarios.Include(u => u.misAmigos)
+                    .Where(user => user.Id == userId)
+                    .FirstOrDefault();
+                Post newPost = new Post();
+                newPost.Contenido = collection["postContent"];
+                newPost.user = userActual;
+                newPost.Fecha = DateTime.Now;
+                this._context.Posts.Add(newPost);
+                this._context.SaveChanges();
+
+                return Redirect("/Home/MisPosts");
+        }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using PaginaRedSocial.Data;
 using PaginaRedSocial.Models;
 using System.Diagnostics;
+using Microsoft.Extensions.Hosting;
 
 namespace PaginaRedSocial.Controllers
 {
@@ -23,13 +24,12 @@ namespace PaginaRedSocial.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            List<Post> postAmigos = this.MostrarPostsAmigos();
-            Console.WriteLine("total: " + postAmigos);
+            List<Post> postAmigos = this.getPostsAmigos();
 
             return View("/Views/Home/Usuarios/Index.cshtml", postAmigos);
         }
 
-        private List<Post> MostrarPostsAmigos()
+        private List<Post> getPostsAmigos()
         {
             int userId = int.Parse(@User.Identity.Name);
             var userActual = this._context.Usuarios.Include(u => u.misAmigos)
@@ -58,7 +58,18 @@ namespace PaginaRedSocial.Controllers
         {
             return View("/Views/Home/MyProfile/Index.cshtml");
         }
-        
+
+
+        [Authorize]
+        public async Task<IActionResult> MisPosts()
+        {
+            var userActual = this._context.Usuarios.Include(u => u.posts)
+                            .Where(user => user.Id == int.Parse(@User.Identity.Name))
+                            .FirstOrDefault();
+
+            return View("/Views/Home/MisPosts/Index.cshtml", userActual.posts);
+        }
+
         [Authorize]
         public async Task<IActionResult> BuscarAmigos()
         {
