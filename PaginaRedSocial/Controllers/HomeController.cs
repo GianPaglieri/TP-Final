@@ -23,7 +23,35 @@ namespace PaginaRedSocial.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            return View("/Views/Home/Usuarios/Index.cshtml");
+            List<Post> postAmigos = this.MostrarPostsAmigos();
+            Console.WriteLine("total: " + postAmigos);
+
+            return View("/Views/Home/Usuarios/Index.cshtml", postAmigos);
+        }
+
+        private List<Post> MostrarPostsAmigos()
+        {
+            int userId = int.Parse(@User.Identity.Name);
+            var userActual = this._context.Usuarios.Include(u => u.misAmigos)
+                .Where(user => user.Id == userId)
+                .FirstOrDefault();
+            List<Post> postAmigos = new List<Post>();
+            List<UsuarioAmigo> amigos = userActual.misAmigos.ToList();
+            List<Post> postsFiltrados = this._context.Posts
+                                              .Include(p => p.user)
+                                              .Where(post => post.UserId != userId)
+                                              .ToList();
+            foreach (Post post in postsFiltrados)
+            {
+                foreach (UsuarioAmigo usuarioAmigo in amigos)
+                {
+                    if (post.UserId == usuarioAmigo.AmigoId)
+                    {
+                        postAmigos.Add(post);
+                    }
+                }
+            }
+            return postAmigos;
         }
 
         public IActionResult Perfil() 

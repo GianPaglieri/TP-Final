@@ -11,8 +11,8 @@ using PaginaRedSocial.Data;
 namespace PaginaRedSocial.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20230201213822_initial")]
-    partial class initial
+    [Migration("20230224022822_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,8 +58,8 @@ namespace PaginaRedSocial.Migrations
                     b.Property<string>("Contenido")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Fecha")
-                        .HasColumnType("longtext");
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -74,8 +74,8 @@ namespace PaginaRedSocial.Migrations
                         new
                         {
                             Id = 1,
-                            Contenido = "Juan",
-                            Fecha = "12/12/1222",
+                            Contenido = "post de Juan",
+                            Fecha = new DateTime(2023, 2, 23, 23, 28, 22, 463, DateTimeKind.Local).AddTicks(2135),
                             UserId = 1
                         });
                 });
@@ -154,23 +154,23 @@ namespace PaginaRedSocial.Migrations
                         {
                             Id = 1,
                             Bloqueado = false,
-                            Dni = 45454,
-                            Email = "aaa",
+                            Dni = 123123,
+                            Email = "admin@gmail.com",
                             Intentos = 0,
-                            IsAdmin = false,
-                            Nombre = "Juan",
-                            Password = "123"
+                            IsAdmin = true,
+                            Nombre = "Admin",
+                            Password = "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3"
                         },
                         new
                         {
                             Id = 2,
                             Bloqueado = false,
-                            Dni = 123123,
-                            Email = "aaa",
+                            Dni = 12345678,
+                            Email = "juan@gmail.com",
                             Intentos = 0,
                             IsAdmin = true,
                             Nombre = "Juan",
-                            Password = "123"
+                            Password = "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3"
                         });
                 });
 
