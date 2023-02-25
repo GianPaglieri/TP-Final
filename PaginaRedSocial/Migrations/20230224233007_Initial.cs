@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PaginaRedSocial.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -78,8 +78,7 @@ namespace PaginaRedSocial.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Contenido = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Fecha = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Fecha = table.Column<DateTime>(type: "datetime", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -211,14 +210,14 @@ namespace PaginaRedSocial.Migrations
                 columns: new[] { "Id", "Bloqueado", "Dni", "Email", "Intentos", "IsAdmin", "Nombre", "Password" },
                 values: new object[,]
                 {
-                    { 1, false, 45454, "aaa", 0, false, "Juan", "123" },
-                    { 2, false, 123123, "aaa", 0, true, "Juan", "123" }
+                    { 1, false, 123123, "admin@gmail.com", 0, true, "Admin", "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3" },
+                    { 2, false, 12345678, "juan@gmail.com", 0, false, "Juan", "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Posts",
                 columns: new[] { "Id", "Contenido", "Fecha", "UserId" },
-                values: new object[] { 1, "Juan", "12/12/1222", 1 });
+                values: new object[] { 1, "post de Juan", new DateTime(2023, 2, 24, 20, 30, 6, 888, DateTimeKind.Local).AddTicks(7566), 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comentarios_PostId",

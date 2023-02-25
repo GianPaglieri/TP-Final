@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Reflection.Metadata;
+using System.ComponentModel.DataAnnotations;
 
 namespace PaginaRedSocial.Models
 {
@@ -10,7 +11,9 @@ namespace PaginaRedSocial.Models
         public int Id { get; set; }
         public string Contenido { get; set; }
 
-        public string Fecha { get; set; }
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
+
+        public DateTime Fecha { get; set; }
 
         //FOREIGN KEY
         public User user { get; set; }

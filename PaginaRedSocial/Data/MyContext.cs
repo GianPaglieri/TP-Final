@@ -76,14 +76,14 @@ namespace PaginaRedSocial.Data
             .HasForeignKey(D => D.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
-            /*modelBuilder.Entity<Post>(posts =>
-            {
-                
-                posts.Property(p => p.Contenido).HasColumnType("varchar(200)").IsRequired(true);
-                posts.Property(p => p.Fecha).HasColumnType("varchar(30)").IsRequired(true);
+            //propiedades de los datos de Post
+            modelBuilder.Entity<Post>(
+                post =>
+                {
+                    post.Property(p => p.Contenido).HasColumnType("longtext");
+                    post.Property(p => p.Fecha).HasColumnType("datetime");
+                });
 
-
-            });*/
 
             //DEFINICIÓN DE LA RELACIÓN ONE TO MANY USUARIO -> COMENTARIO
             modelBuilder.Entity<Comentario>()
@@ -147,13 +147,13 @@ namespace PaginaRedSocial.Data
 
             modelBuilder.Entity<User>()
             .HasData(
-            new User { Id = 1, Nombre = "Juan", Dni = 45454, Email = "admin@gmail.com", Bloqueado = false, IsAdmin = false, Password = Utils.Encriptar("123"), Intentos = 0 }
+            new User { Id = 1, Nombre = "Admin", Dni = 123123, Email = "admin@gmail.com", Bloqueado = false, IsAdmin = true, Password = Utils.Encriptar("123"), Intentos = 0 }
             ,
-            new User { Id = 2, Nombre = "Juan", Dni = 123123, Email = "aaa", Bloqueado = false, IsAdmin = true, Password = Utils.Encriptar("123"), Intentos = 0 }
+            new User { Id = 2, Nombre = "Juan", Dni = 12345678, Email = "juan@gmail.com", Bloqueado = false, IsAdmin = false, Password = Utils.Encriptar("123"), Intentos = 0 }
             );
             modelBuilder.Entity<Post>()
                .HasData(
-               new Post { Id = 1, Contenido = "Juan", Fecha = "12/12/1222", UserId = 1 }
+               new Post { Id = 1, Contenido = "post de Juan", Fecha = DateTime.Now, UserId = 2 }
                );
         }
 

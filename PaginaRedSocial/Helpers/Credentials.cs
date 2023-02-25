@@ -6,7 +6,7 @@
         private const String DATABASE = "RedSocial";
         private const String USER = "root";
         private const String PASSWORD = "";
-        private const int PORT = 3307;
+        private const int PORT = 3306;
 
         public static String GetConnectionString()
         {
