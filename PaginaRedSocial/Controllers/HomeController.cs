@@ -30,7 +30,12 @@ namespace PaginaRedSocial.Controllers
         {
             return View("/Views/Home/MyProfile/Index.cshtml");
         }
-        
+
+        public IActionResult Passnueva()
+        {
+            return View("/Views/Home/MyProfile/Passnueva.cshtml");
+        }
+
         [Authorize]
         public async Task<IActionResult> BuscarAmigos()
         {
