@@ -66,8 +66,7 @@ namespace PaginaRedSocial.Controllers
             var userActual = this._context.Usuarios.Include(u => u.posts)
                             .Where(user => user.Id == int.Parse(@User.Identity.Name))
                             .FirstOrDefault();
-
-            return View("/Views/Home/MisPosts/Index.cshtml", userActual.posts);
+            return View("/Views/Home/MisPosts/Index.cshtml", userActual.posts.OrderBy(s => s.Fecha));
         }
 
         [Authorize]
@@ -96,6 +95,34 @@ namespace PaginaRedSocial.Controllers
                 }
             }
                 return View("/Views/Home/BuscarAmigos/Index.cshtml", noAmigos);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> MisAmigos()
+        {
+            var userActual = this._context.Usuarios
+                            .Include(u => u.misAmigos)
+                            .Where(user => user.Id == int.Parse(@User.Identity.Name))
+                            .FirstOrDefault();
+            List<User> amigos = new List<User>();
+            var users = this._context.Usuarios.Where(user => user.IsAdmin != true)
+                .Where(user => user.Id != int.Parse(@User.Identity.Name))
+                .ToList();
+            foreach (User user in users)
+            {
+                if (userActual.misAmigos.Count > 0)
+                {
+                    // busco en mis amigos el usuario filtrado, si el result da 0 significa que
+                    // el user no está en mis amigos
+                    int result = userActual.misAmigos.Where(ma => ma.AmigoId == user.Id).Count();
+
+                    if (result > 0)
+                    {
+                        amigos.Add(user);
+                    }
+                }
+            }
+            return View("/Views/Home/MisAmigos/Index.cshtml", amigos);
         }
 
         public IActionResult Privacy()

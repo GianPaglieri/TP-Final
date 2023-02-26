@@ -39,28 +39,28 @@
             padding-left: 10px;
         }
 
-        .add-friend-btn-container{
+        .remove-friend-btn-container{
             display: flex;
             align-items: center;
         }
-        .add-friend-btn {
+        .remove-friend-btn {
             outline: none;
             padding: 5px;
-            background-color: #2374e1;
             height: 36px;
             width: 200px;
             color: #FFF;
             font-size: 16px;
             font-weight: bold;
             border-radius: 10px;
-            border: 1px solid #2374e1;
             text-align: center;
             text-decoration: none;
+            background-color: #F02849;
+            border: 1px solid #F02849;
         }
 
-        .add-friend-btn:hover {
-            background-color: #3982ff;
-            border: 1px solid #3982ff;
+        .remove-friend-btn:hover {
+            background-color: #f0536d;
+            border: 1px solid #f0536d;
             color: #FFF;
         }
 
@@ -80,9 +80,9 @@
                         <img class="profile-image-user" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" />
                         <span class="user-name">@Html.DisplayFor(modelItem => item.Nombre)</span>
                     </div>
-                    <div class="add-friend-btn-container">
-                        <a class="add-friend-btn" asp-controller="Users" asp-route-id="@item.Id" asp-action="AgregarAmigo">
-                            Añadir a mis amigos
+                    <div class="remove-friend-btn-container">
+                        <a class="remove-friend-btn" asp-controller="Users" asp-route-id="@item.Id" asp-action="EliminarAmigo">
+                            Eliminar de mis amigos
                         </a>
                     </div>
                 </div>

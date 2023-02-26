@@ -162,7 +162,7 @@ namespace PaginaRedSocial.Controllers
         {
             return _context.Usuarios.Any(e => e.Id == id);
         }
-        // GET: Users/Delete/5
+
         public async Task<IActionResult> AgregarAmigo()
         {
             string page = HttpContext.Request.Query["id"].ToString();
@@ -181,6 +181,32 @@ namespace PaginaRedSocial.Controllers
             this._context.SaveChanges();
 
             return Redirect("/Home/BuscarAmigos");
+        }
+
+        public async Task<IActionResult> EliminarAmigo()
+        {
+            string queryId = HttpContext.Request.Query["id"].ToString();
+            int exAmigoId = Int16.Parse(queryId);
+            int userId = int.Parse(@User.Identity.Name);
+
+            User exAmigo = this._context.Usuarios.Include(u => u.misAmigos).Where(u => u.Id == exAmigoId).FirstOrDefault();
+            var userActual = this._context.Usuarios.Include(u => u.misAmigos).Where(user => user.Id == userId).FirstOrDefault();
+
+            UsuarioAmigo exAmigoUser = exAmigo.misAmigos
+                                    .Where(ua => ua.UsuarioId == exAmigoId && ua.AmigoId == userActual.Id)
+                                    .FirstOrDefault();
+            UsuarioAmigo userExAmigo = userActual.misAmigos
+                                .Where(ua => ua.UsuarioId == userActual.Id && ua.AmigoId == exAmigoId)
+                                .FirstOrDefault();
+
+            userActual.misAmigos.Remove(userExAmigo);
+            exAmigo.misAmigos.Remove(exAmigoUser);
+
+            this._context.Usuarios.Update(userActual);
+            this._context.Usuarios.Update(exAmigo);
+            this._context.SaveChanges();
+
+            return Redirect("/Home/MisAmigos");
         }
 
     }
