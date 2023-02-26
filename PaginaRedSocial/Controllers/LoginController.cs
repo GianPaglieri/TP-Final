@@ -18,7 +18,7 @@ namespace PaginaRedSocial.Controllers
     public class LoginController : Controller
     {
         private readonly MyContext _context;
-        
+        private SoundPlayer _soundPlayer;
 
         public LoginController(MyContext context)
         {
@@ -44,14 +44,16 @@ namespace PaginaRedSocial.Controllers
             // Valido el DNI
             if (usuario == null)
             {
-                
+                this._soundPlayer = new SoundPlayer("Resources/ErrorSound.wav");
+                this._soundPlayer.Play();
                 return Redirect("/Login?message=El-DNI-ingresado-es-incorrecto");
             }
 
             // Verifico intentos
             if (usuario.Bloqueado)
             {
-                
+                this._soundPlayer = new SoundPlayer("Resources/ErrorSound.wav");
+                this._soundPlayer.Play();
                 return Redirect("/Login?message=Su-usuario-esta-bloqueado-por-superar-el-limite-de-intentos-permitidos");
             }
 
@@ -68,7 +70,8 @@ namespace PaginaRedSocial.Controllers
                 this._context.Update(usuario);
                 this._context.SaveChanges();
 
-               
+                this._soundPlayer = new SoundPlayer("Resources/ErrorSound.wav");
+                this._soundPlayer.Play();
                 return Redirect("/Login?message=La-clave-ingresada-es-incorrecta");
             }
 
@@ -100,6 +103,8 @@ namespace PaginaRedSocial.Controllers
                 usuario.Intentos = 0;*/
                 this._context.Update(usuario);
                 this._context.SaveChanges();
+                _soundPlayer = new SoundPlayer("Resources/SuccessSound.wav");
+                _soundPlayer.Play();
                 return Redirect("/Users");
             }
             else
@@ -110,6 +115,8 @@ namespace PaginaRedSocial.Controllers
                 usuario.Intentos = 0;*/
                 this._context.Update(usuario);
                 this._context.SaveChanges();
+                _soundPlayer = new SoundPlayer("Resources/SuccessSound.wav");
+                _soundPlayer.Play();
                 return Redirect("/Home");
             }
         }
@@ -121,6 +128,8 @@ namespace PaginaRedSocial.Controllers
                 CookieAuthenticationDefaults.AuthenticationScheme);
             /*_soundPlayer = new SoundPlayer("Resources/DeleteSound.wav");
             _soundPlayer.Play();*/
+            _soundPlayer = new SoundPlayer("Resources/DeleteSound.wav");
+            _soundPlayer.Play();
             return RedirectToAction("Login");
         }
     }
