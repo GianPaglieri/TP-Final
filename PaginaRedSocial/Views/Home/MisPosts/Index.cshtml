@@ -141,6 +141,19 @@
             color: #424242;
             padding: 10px;
         }
+
+        .actions-container{
+            margin-top: 7px;
+            padding-left: 5px;
+        }
+
+        .delete-icon{
+            color: #F02849;
+        }
+        .delete-icon:hover{
+            cursor: pointer;
+            color: #f0536d;
+        }
     </style>
 </head>
 
@@ -180,6 +193,13 @@
                     <span class="friend-post-date">
                         @Html.DisplayFor(modelItem => item.Fecha)
                     </span>
+                    <div class="actions-container">
+                    <a asp-controller="Posts" asp-route-id="@item.Id" asp-action="EliminarPost">
+                            <span class="material-icons delete-icon">
+                                delete
+                            </span>
+                        </a>
+                    </div>
                 </div>
             }
         </div>
