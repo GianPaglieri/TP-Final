@@ -54,10 +54,15 @@ namespace PaginaRedSocial.Controllers
             return postAmigos;
         }
 
-        public IActionResult Perfil() 
+        public IActionResult Perfil()
         {
             return View("/Views/Home/MyProfile/Index.cshtml");
         }
+
+        public IActionResult Passnueva()
+        {
+            return View("/Views/Home/MyProfile/Passnueva.cshtml");
+        } 
 
 
         [Authorize]
