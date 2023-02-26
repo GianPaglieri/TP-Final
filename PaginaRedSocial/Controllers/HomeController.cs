@@ -53,18 +53,25 @@ namespace PaginaRedSocial.Controllers
             }
             return postAmigos;
         }
-        public IActionResult Passnueva()
+
+        public IActionResult Passnueva(String? message)
         {
+            ViewData["message"] = null;
+            if (message != null)
+                ViewData["message"] = message.Replace("-", " ");
             return View("/Views/Home/MyProfile/Passnueva.cshtml");
         } 
 
 
         [Authorize]
-        public async Task<IActionResult> Perfil()
+        public async Task<IActionResult> Perfil(String? message)
         {
             var user = await _context.Usuarios
                 .FirstOrDefaultAsync(u => u.Id == int.Parse(@User.Identity.Name));
 
+            ViewData["message"] = null;
+            if (message != null)
+                ViewData["message"] = message.Replace("-", " ");
             return View("/Views/Home/MyProfile/Index.cshtml", user);
         }
 

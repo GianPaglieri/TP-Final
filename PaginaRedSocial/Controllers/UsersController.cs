@@ -136,7 +136,41 @@ namespace PaginaRedSocial.Controllers
             this._context.Update(userActual);
             this._context.SaveChanges();
 
-            return Redirect("/Home/Perfil");
+            return Redirect("/Home/Perfil/?message=Se-actualizo-exitosamente");
+        }
+
+        [HttpPost]
+        public IActionResult CambioClave(Microsoft.AspNetCore.Http.IFormCollection collection)
+        {
+
+            int userId = int.Parse(@User.Identity.Name);
+            var userActual = this._context.Usuarios
+                .Where(user => user.Id == userId)
+                .FirstOrDefault();
+
+            string password = Utils.Encriptar(collection["password"]);
+            string passwordNueva = Utils.Encriptar(collection["passwordNueva"]);
+            string rPasswordNueva = Utils.Encriptar(collection["rPasswordNueva"]);
+
+            if (userActual.Password == password)
+            {
+                if (rPasswordNueva == passwordNueva)
+                {
+                    userActual.Password = rPasswordNueva;
+                    this._context.Update(userActual);
+                    this._context.SaveChanges();
+
+                    return Redirect("/Home/Perfil/?message=Se-actualizo-la-clave-exitosamente");
+                }
+                else 
+                {
+                    return Redirect("/Home/Passnueva/?message=La-clave-no-coincide-con-la-nueva");
+                }
+            }
+            else
+            {
+                return Redirect("/Home/Passnueva/?message=La-clave-ingresada-es-incorrecta");
+            }
         }
 
         // GET: Users/Delete/5

@@ -18,6 +18,12 @@
 
 <body>
     <div class="box">
+        @if (ViewData["message"] != null)
+        {
+            <div class="text-success my-2 py-1">
+                @ViewData["message"]
+            </div>
+        }
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="col-mb-3">
             <label asp-for="Dni" class="control-label"></label>
