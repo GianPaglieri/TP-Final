@@ -54,9 +54,12 @@ namespace PaginaRedSocial.Controllers
             return postAmigos;
         }
 
-        public IActionResult Perfil()
+        public async Task<IActionResult> Perfil()
         {
-            return View("/Views/Home/MyProfile/Index.cshtml");
+            int userId = int.Parse(@User.Identity.Name);
+            var user = await _context.Usuarios
+                .FirstOrDefaultAsync(m => m.Id == userId);
+            return View("/Views/Home/MyProfile/Index.cshtml", user);
         }
 
         public IActionResult Passnueva()

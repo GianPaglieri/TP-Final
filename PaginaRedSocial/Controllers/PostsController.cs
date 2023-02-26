@@ -185,5 +185,19 @@ namespace PaginaRedSocial.Controllers
 
                 return Redirect("/Home/MisPosts");
         }
+
+        public async Task<IActionResult> EliminarPost()
+        {
+            string idQuery = HttpContext.Request.Query["id"].ToString();
+            int postId = Int16.Parse(idQuery);
+
+            var post = this._context.Posts.Where(post=> post.Id == postId).FirstOrDefault();
+
+            this._context.Posts.Remove(post);
+            this._context.SaveChanges();
+
+            return Redirect("/Home/MisPosts");
+        }
+
     }
 }

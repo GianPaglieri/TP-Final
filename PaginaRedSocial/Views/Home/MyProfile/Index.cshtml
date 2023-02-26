@@ -1,4 +1,6 @@
-﻿@{
+﻿@model PaginaRedSocial.Models.User
+
+@{
     ViewData["Title"] = "Perfil Page";
 }
 
@@ -20,15 +22,18 @@
         <form>
         <div class="col-mb-3">
             <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="inputNombre" placeholder="Nombre...">
+                <input type="text" class="form-control" 
+                id="inputNombre" value="@Html.DisplayFor(model => model.Nombre)">
         </div>
         <div class="col-mb-3">
-            <label for="apellido" class="form-label">Apellido</label>
-            <input type="email" class="form-control" id="inputApellido" placeholder="Apellido...">
+            <label for="nombre" class="form-label">DNI</label>
+                <input type="text" class="form-control" 
+                id="inputNombre" value="@Html.DisplayFor(model => model.Dni)">
         </div>
         <div class="col-mb-3">
             <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="inputEmail" placeholder="Email...">
+                <input type="email" class="form-control" 
+                id="inputEmail" value='@Html.DisplayFor(model => model.Email).ToString()'>
         </div>
         <div class="col-mb-3">
             <button type="submit" class="btn btn-primary">@("Editar")</button>
