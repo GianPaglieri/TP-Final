@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using PaginaRedSocial.Data;
 using PaginaRedSocial.Models;
 using PaginaRedSocial.Helpers;
-
+using System.ComponentModel;
 
 namespace PaginaRedSocial.Controllers
 {
@@ -119,6 +119,24 @@ namespace PaginaRedSocial.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(user);
+        }
+
+        [HttpPost]
+        public IActionResult MyEdit(Microsoft.AspNetCore.Http.IFormCollection collection)
+        {
+
+            int userId = int.Parse(@User.Identity.Name);
+            var userActual = this._context.Usuarios
+                .Where(user => user.Id == userId)
+                .FirstOrDefault();
+            string v = collection["dni"].ToString();
+            userActual.Dni = Int32.Parse(v);
+            userActual.Nombre = collection["nombre"];
+            userActual.Email = collection["email"];
+            this._context.Update(userActual);
+            this._context.SaveChanges();
+
+            return Redirect("/Home/Perfil");
         }
 
         // GET: Users/Delete/5
