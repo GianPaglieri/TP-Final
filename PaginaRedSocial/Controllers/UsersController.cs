@@ -9,13 +9,14 @@ using PaginaRedSocial.Data;
 using PaginaRedSocial.Models;
 using PaginaRedSocial.Helpers;
 using System.ComponentModel;
+using System.Media;
 
 namespace PaginaRedSocial.Controllers
 {
     public class UsersController : Controller
     {
         private readonly MyContext _context;
-
+        private SoundPlayer _soundPlayer;
         public UsersController(MyContext context)
         {
             _context = context;
@@ -65,6 +66,8 @@ namespace PaginaRedSocial.Controllers
                 user.Password = Utils.Encriptar(user.Password);
                 _context.Add(user);
                 await _context.SaveChangesAsync();
+                _soundPlayer = new SoundPlayer("Resources/SuccessSound.wav");
+                _soundPlayer.Play();
                 return RedirectToAction(nameof(Index));
             }
             return View(user);
@@ -103,6 +106,8 @@ namespace PaginaRedSocial.Controllers
                 try
                 {
                     _context.Update(user);
+                    _soundPlayer = new SoundPlayer("Resources/SuccessSound.wav");
+                    _soundPlayer.Play();
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -113,6 +118,8 @@ namespace PaginaRedSocial.Controllers
                     }
                     else
                     {
+                        _soundPlayer = new SoundPlayer("Resources/ErrorSound.wav");
+                        _soundPlayer.Play();
                         throw;
                     }
                 }
@@ -198,11 +205,15 @@ namespace PaginaRedSocial.Controllers
         {
             if (_context.Usuarios == null)
             {
+                _soundPlayer = new SoundPlayer("Resources/ErrorSound.wav");
+                _soundPlayer.Play();
                 return Problem("Entity set 'MyContext.Usuarios'  is null.");
             }
             var user = await _context.Usuarios.FindAsync(id);
             if (user != null)
             {
+                _soundPlayer = new SoundPlayer("Resources/DeleteSound.wav");
+                _soundPlayer.Play();
                 _context.Usuarios.Remove(user);
             }
 
