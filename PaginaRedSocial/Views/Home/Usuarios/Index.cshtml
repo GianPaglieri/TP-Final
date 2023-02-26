@@ -1,4 +1,6 @@
-﻿@model IEnumerable<PaginaRedSocial.Models.Post>
+﻿
+@model IEnumerable<PaginaRedSocial.Models.Post>
+
 
 @{
     ViewData["Title"] = "Home Page";
@@ -180,6 +182,16 @@
                     <span class="friend-post-date">
                         @Html.DisplayFor(modelItem => item.Fecha)
                     </span>
+                      <div class="friend-post-content">
+                        @Html.DisplayFor(modelItem => item.Comentarios)
+                    </div>
+                    
+                        <form asp-controller="Comentarios" asp-action="CreateComment" method="post">
+                   
+                    <textarea id="ComentarioContent" name="ComentarioContent" placeholder="¿Quieres comentar el post de tu amigo?"></textarea>
+                    <input name="postId" type="hidden" value="@Html.DisplayFor(modelItem => item.Id)" />
+                    <button class="new-post-btn" type="submit">Comentar</button>
+                </form>
                 </div>
             }
         </div>

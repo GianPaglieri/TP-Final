@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -21,8 +22,9 @@ namespace PaginaRedSocial.Controllers
 
         // GET: Comentarios
        
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> IndexViewBag()
         {
+            
             if (!this._context.Usuarios.Find(int.Parse(User.Identity.Name)).IsAdmin)
                 return Redirect("/Comentarios/all?message=No-tenes-permiso-de-administrador");
             var myContext = _context.comentarios.Include(c => c.Post).Include(c => c.Usuario);
@@ -48,7 +50,24 @@ namespace PaginaRedSocial.Controllers
 
             return View(comentario);
         }
+        public IActionResult CreateComment(Microsoft.AspNetCore.Http.IFormCollection collection)
+        {
 
+            Console.WriteLine("Entró a createComment: " + collection["ComentarioContent"]);
+            int userId = int.Parse(@User.Identity.Name);
+            var userActual = this._context.Usuarios.Include(u => u.misAmigos)
+                .Where(user => user.Id == userId)
+                .FirstOrDefault();
+            Comentario newComment = new Comentario();
+            newComment.PostId = int.Parse(collection["PostId"]);       
+            newComment.Contenido = collection["ComentarioContent"];
+            newComment.Usuario = userActual;
+            newComment.FechaComentario = DateTime.Now;
+            this._context.comentarios.Add(newComment);
+            this._context.SaveChanges();
+
+            return Redirect("/Home/MisPosts");
+        }
         // GET: Comentarios/Create
         public IActionResult Create()
         {
