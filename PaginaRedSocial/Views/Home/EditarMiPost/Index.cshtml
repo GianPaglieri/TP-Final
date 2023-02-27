@@ -1,0 +1,67 @@
+﻿@model PaginaRedSocial.Models.Post
+
+@{
+    ViewData["Title"] = "Buscar Amigos Page";
+}
+
+<head>
+    <style>
+        body{
+            flex: 1;
+            height: 100% !important;
+            width: 100% !important;
+            background-color:#F2F2F2;
+        }
+
+        .new-post-container {
+            padding: 20px;
+            background-color: #FFF;
+            border-radius: 10px;
+            min-height: 50px;
+            box-shadow: -3px 8px 5px -9px rgba(0,0,0,0.16);
+            -webkit-box-shadow: -3px 8px 5px -9px rgba(0,0,0,0.16);
+            -moz-box-shadow: -3px 8px 5px -9px rgba(0,0,0,0.16);
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 80px;
+            padding: 12px 20px;
+            box-sizing: border-box;
+            background-color: #FFF;
+            font-size: 16px;
+            resize: none;
+            outline: none;
+            border: 1px solid #FFF;
+        }
+
+        .new-post-btn {
+            outline: none;
+            padding: 5px;
+            background-color: #2374e1;
+            width: 100%;
+            height: 36px;
+            color: #FFF;
+            font-weight: bold;
+            border-radius: 10px;
+            border: 1px solid #2374e1;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Editar mi post</h1>
+
+    <section id="edit-post-section">
+        <div class="new-post-container">
+            <form asp-controller="Posts" asp-action="EditMyPost" method="post">
+                <input name="postId" type="hidden" value="@Html.DisplayFor(model => model.Id)"/>
+                <textarea id="postContent" name="postContent" placeholder="¿En qué estás pensando?">
+@Html.DisplayFor(model => model.Contenido)</textarea>
+                <button class="new-post-btn" type="submit">Editar</button>
+            </form>
+        </div>
+    </section>
+
+</body>

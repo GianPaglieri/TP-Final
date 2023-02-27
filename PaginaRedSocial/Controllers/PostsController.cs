@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Azure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PaginaRedSocial.Data;
 using PaginaRedSocial.Models;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace PaginaRedSocial.Controllers
 {
@@ -170,20 +172,69 @@ namespace PaginaRedSocial.Controllers
         [HttpPost]
         public IActionResult CreatePost(Microsoft.AspNetCore.Http.IFormCollection collection)
         {
-           
-                Console.WriteLine("Entró a createPost: " + collection["postContent"]);
-                int userId = int.Parse(@User.Identity.Name);
-                var userActual = this._context.Usuarios.Include(u => u.misAmigos)
-                    .Where(user => user.Id == userId)
-                    .FirstOrDefault();
-                Post newPost = new Post();
-                newPost.Contenido = collection["postContent"];
-                newPost.user = userActual;
-                newPost.Fecha = DateTime.Now;
-                this._context.Posts.Add(newPost);
-                this._context.SaveChanges();
+            int userId = int.Parse(@User.Identity.Name);
+            var userActual = this._context.Usuarios.Include(u => u.misAmigos)
+                .Where(user => user.Id == userId)
+                .FirstOrDefault();
+            Post newPost = new Post();
+            newPost.Contenido = collection["postContent"];
+            newPost.user = userActual;
+            newPost.Fecha = DateTime.Now;
 
-                return Redirect("/Home/MisPosts");
+            List<Tag> postTags = new List<Tag>();
+            postTags = this.getTags(collection["postContent"]);
+            if (postTags.Count > 0)
+            {
+                this.setTagsToPost(newPost, postTags);
+            }
+
+            this._context.Posts.Add(newPost);
+            this._context.SaveChanges();
+
+            return Redirect("/Home/MisPosts");
+        }
+
+        private void setTagsToPost(Post post, List<Tag> tags)
+        {
+            foreach (Tag tag in tags)
+            {
+                Tag tagEncontrado = this._context.tags
+                    .Where(t => t.Palabra == tag.Palabra)
+                    .FirstOrDefault();
+
+                if (tagEncontrado != null)
+                {
+                    post.Tags.Add(tagEncontrado);
+                }
+                else
+                {
+                    post.Tags.Add(tag);
+                }
+            }
+        }
+
+        private List<Tag> getTags(String text)
+        {
+            List<Tag> postTags = new List<Tag>();
+            if (!string.IsNullOrEmpty(text))
+            {
+                string[] firstFilter = text.Split(' ');
+                foreach (string filter in firstFilter)
+                {
+                    if (filter.Contains("#"))
+                    {
+                        string[] tags = filter.Split('#');
+                        for (int i = 1; i < tags.Length; i++)
+                        {
+                            Console.WriteLine("tag: " + tags[i]);
+                            Tag newTag = new Tag { Palabra = tags[i].Trim() };
+                            postTags.Add(newTag);
+                        }
+                    }
+                }
+            }
+
+            return postTags;
         }
 
         public async Task<IActionResult> EliminarPost()
@@ -191,9 +242,53 @@ namespace PaginaRedSocial.Controllers
             string idQuery = HttpContext.Request.Query["id"].ToString();
             int postId = Int16.Parse(idQuery);
 
-            var post = this._context.Posts.Where(post=> post.Id == postId).FirstOrDefault();
+            var post = this._context.Posts.Where(post => post.Id == postId).FirstOrDefault();
 
             this._context.Posts.Remove(post);
+            this._context.SaveChanges();
+
+            return Redirect("/Home/MisPosts");
+        }
+
+        public async Task<IActionResult> EditarPost()
+        {
+            string idQuery = HttpContext.Request.Query["id"].ToString();
+            int postId = Int16.Parse(idQuery);
+
+            var post = this._context.Posts.Where(post => post.Id == postId).FirstOrDefault();
+
+            return View("/Views/Home/EditarMiPost/index.cshtml", post);
+        }
+
+
+        [HttpPost]
+        public IActionResult EditMyPost(Microsoft.AspNetCore.Http.IFormCollection collection)
+        {
+
+            int postId = Int16.Parse(collection["postId"]);
+
+            var post = this._context.Posts.Where(post => post.Id == postId)
+                .Include(p => p.Tags)
+                .Include(p => p.PostTags)
+                .FirstOrDefault();
+            string text = collection["postContent"];
+            List<Tag> postTags = new List<Tag>();
+
+            postTags = this.getTags(collection["postContent"].ToString());
+
+            if (postTags.Count > 0)
+            {
+                post.Tags.Clear();
+                this.setTagsToPost(post, postTags);
+            }
+            else
+            {
+                post.Tags.Clear();
+            }
+
+            post.Contenido = collection["postContent"];
+
+            this._context.Posts.Update(post);
             this._context.SaveChanges();
 
             return Redirect("/Home/MisPosts");

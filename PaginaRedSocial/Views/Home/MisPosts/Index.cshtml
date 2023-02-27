@@ -147,12 +147,24 @@
             padding-left: 5px;
         }
 
+        a{
+            text-decoration: none;
+        }
+
         .delete-icon{
             color: #F02849;
         }
         .delete-icon:hover{
             cursor: pointer;
             color: #f0536d;
+        }
+
+        .edit-icon{
+            color: #f5bd3b;
+        }
+        .edit-icon:hover{
+            cursor: pointer;
+                color: #f4c455;
         }
     </style>
 </head>
@@ -194,9 +206,14 @@
                         @Html.DisplayFor(modelItem => item.Fecha)
                     </span>
                     <div class="actions-container">
-                    <a asp-controller="Posts" asp-route-id="@item.Id" asp-action="EliminarPost">
+                        <a asp-controller="Posts" asp-route-id="@item.Id" asp-action="EliminarPost">
                             <span class="material-icons delete-icon">
                                 delete
+                            </span>
+                        </a>
+                        <a asp-controller="Posts" asp-route-id="@item.Id" asp-action="EditarPost">
+                            <span class="material-icons edit-icon">
+                                edit
                             </span>
                         </a>
                     </div>
