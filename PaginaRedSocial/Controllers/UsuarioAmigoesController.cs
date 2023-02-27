@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,6 +14,7 @@ namespace PaginaRedSocial.Controllers
     public class UsuarioAmigoesController : Controller
     {
         private readonly MyContext _context;
+        private SoundPlayer _soundPlayer;
 
         public UsuarioAmigoesController(MyContext context)
         {
@@ -67,6 +69,8 @@ namespace PaginaRedSocial.Controllers
             {
                 _context.Add(usuarioAmigo);
                 await _context.SaveChangesAsync();
+                _soundPlayer = new SoundPlayer("Resources/SuccessSound.wav");
+                _soundPlayer.Play();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["AmigoId"] = new SelectList(_context.Usuarios, "Id", "Email", usuarioAmigo.AmigoId);
@@ -109,6 +113,8 @@ namespace PaginaRedSocial.Controllers
                 try
                 {
                     _context.Update(usuarioAmigo);
+                    _soundPlayer = new SoundPlayer("Resources/SuccessSound.wav");
+                    _soundPlayer.Play();
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -119,6 +125,8 @@ namespace PaginaRedSocial.Controllers
                     }
                     else
                     {
+                        _soundPlayer = new SoundPlayer("Resources/ErrorSound.wav");
+                        _soundPlayer.Play();
                         throw;
                     }
                 }
@@ -161,6 +169,8 @@ namespace PaginaRedSocial.Controllers
             var usuarioAmigo = await _context.UsuarioAmigo.FindAsync(id);
             if (usuarioAmigo != null)
             {
+                _soundPlayer = new SoundPlayer("Resources/DeleteSound.wav");
+                _soundPlayer.Play();
                 _context.UsuarioAmigo.Remove(usuarioAmigo);
             }
 

@@ -1,5 +1,4 @@
 ﻿@model PaginaRedSocial.Models.User
-
 @{
     ViewData["Title"] = "Perfil Page";
 }
@@ -19,26 +18,31 @@
 
 <body>
     <div class="box">
-        <form>
+        @if (ViewData["message"] != null)
+        {
+            <div class="text-success my-2 py-1">
+                @ViewData["message"]
+            </div>
+        }
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="col-mb-3">
-            <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" 
-                id="inputNombre" value="@Html.DisplayFor(model => model.Nombre)">
+            <label asp-for="Dni" class="control-label"></label>
+            <input asp-for="Dni" class="form-control" name="dni" readonly />
+            <span asp-validation-for="Dni" class="text-danger"></span>
         </div>
         <div class="col-mb-3">
-            <label for="nombre" class="form-label">DNI</label>
-                <input type="text" class="form-control" 
-                id="inputNombre" value="@Html.DisplayFor(model => model.Dni)">
+            <label asp-for="Nombre" class="control-label"></label>
+            <input asp-for="Nombre" class="form-control" name="nombre" readonly/>
+            <span asp-validation-for="Nombre" class="text-danger"></span>
         </div>
         <div class="col-mb-3">
-            <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" 
-                id="inputEmail" value='@Html.DisplayFor(model => model.Email).ToString()'>
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="form-control" name="email" readonly/>
+            <span asp-validation-for="Email" class="text-danger"></span>
         </div>
         <div class="col-mb-3">
-            <button type="submit" class="btn btn-primary">@("Editar")</button>
+            <a class="btn btn-primary" asp-controller="Home" asp-action="MyEdit">Editar</a>
         </div>
-    </form>
         <a class="btn btn-warning" asp-controller="Home" asp-action="Passnueva">
             Cambiar clave
         </a>

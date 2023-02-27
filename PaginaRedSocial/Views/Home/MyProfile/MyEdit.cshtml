@@ -1,0 +1,48 @@
+﻿@model PaginaRedSocial.Models.User
+@{
+    ViewData["Title"] = "Perfil Page";
+}
+
+<head>
+    <style>
+        body {
+        }
+
+        .box {
+            width: 600px;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <form asp-controller="Users" asp-action="MyEdit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-mb-3">
+                <label asp-for="Dni" class="control-label"></label>
+                <input asp-for="Dni" class="form-control" name="dni" />
+                <span asp-validation-for="Dni" class="text-danger"></span>
+            </div>
+            <div class="col-mb-3">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" name="nombre" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="col-mb-3">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" name="email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="col-mb-3">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+            </div>
+        </form>
+        <a class="btn btn-danger" asp-controller="Home" asp-action="Perfil">
+            Volver atras
+        </a>
+    </div>
+
+</body>
+
+

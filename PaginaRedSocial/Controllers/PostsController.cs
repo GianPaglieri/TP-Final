@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Threading.Tasks;
 using Azure;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ namespace PaginaRedSocial.Controllers
     public class PostsController : Controller
     {
         private readonly MyContext _context;
+        private SoundPlayer _soundPlayer;
 
         public PostsController(MyContext context)
         {
@@ -67,6 +69,8 @@ namespace PaginaRedSocial.Controllers
             {
                 _context.Add(post);
                 await _context.SaveChangesAsync();
+                _soundPlayer = new SoundPlayer("Resources/SuccessSound.wav");
+                _soundPlayer.Play();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["UserId"] = new SelectList(_context.Usuarios, "Id", "Email", post.UserId);
@@ -113,10 +117,14 @@ namespace PaginaRedSocial.Controllers
                 {
                     if (!PostExists(post.Id))
                     {
+                        _soundPlayer = new SoundPlayer("Resources/SuccessSound.wav");
+                        _soundPlayer.Play();
                         return NotFound();
                     }
                     else
                     {
+                        _soundPlayer = new SoundPlayer("Resources/ErrorSound.wav");
+                        _soundPlayer.Play();
                         throw;
                     }
                 }
@@ -157,6 +165,8 @@ namespace PaginaRedSocial.Controllers
             var post = await _context.Posts.FindAsync(id);
             if (post != null)
             {
+                _soundPlayer = new SoundPlayer("Resources/SuccessSound.wav");
+                _soundPlayer.Play();
                 _context.Posts.Remove(post);
             }
 

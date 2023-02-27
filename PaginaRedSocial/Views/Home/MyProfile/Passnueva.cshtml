@@ -16,16 +16,17 @@
 
 <body>
     <div class="box">
-        <form>
+        @if (ViewData["message"] != null)
+        {
+        <div class="text-danger my-2 py-1">
+                @ViewData["message"]
+        </div>
+        }
+        <form asp-controller="Users" asp-action="CambioClave" method="post">
             <div class="mb-3">
                 <label for="PassActual" class="form-label">Password actual</label>
                 <input type="password" class="form-control" id="password" name="password">
-                @if (ViewData["message"] != null)
-                {
-                <div class="text-danger my-2 py-1">
-                        @ViewData["message"]
-                </div>
-                }
+                
             </div>
             <div class="mb-3">
                 <label for="PassNueva" class="form-label">Nueva password</label>
@@ -33,17 +34,10 @@
             </div>
             <div class="mb-3">
                 <label for="RePassNueva" class="form-label">Confirmar nueva password</label>
-                <input type="password" class="form-control" id="password" name="password">
-                @if (ViewData["message"] != null)
-                {
-                    <div class="text-danger my-2 py-1">
-                        @ViewData["message"]
-                    </div>
-                }
+                <input type="password" class="form-control" id="password" name="rPasswordNueva">
             </div>
             <button type="submit" class="btn btn-primary">Guardar</button>
         </form>
-
         <a class="btn btn-danger" asp-controller="Home" asp-action="Perfil">
             Volver atras
         </a>
