@@ -39,6 +39,7 @@ namespace PaginaRedSocial.Controllers
             List<UsuarioAmigo> amigos = userActual.misAmigos.ToList();
             List<Post> postsFiltrados = this._context.Posts
                                               .Include(p => p.user)
+                                              .Include(p => p.Comentarios)
                                               .Where(post => post.UserId != userId)
                                               .ToList();
             foreach (Post post in postsFiltrados)
@@ -47,6 +48,7 @@ namespace PaginaRedSocial.Controllers
                 {
                     if (post.UserId == usuarioAmigo.AmigoId)
                     {
+                        Console.WriteLine("postId:"+post.Id + " tiene " + post.Comentarios.Count);
                         postAmigos.Add(post);
                     }
                 }

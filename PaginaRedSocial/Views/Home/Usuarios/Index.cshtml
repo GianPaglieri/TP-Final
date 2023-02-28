@@ -44,10 +44,19 @@
             background-color: #72cb88;
             border: 1px solid #72cb88;
         }
+        .comentar-btn:hover {
+            background-color: ##C70039;
+            border: 1px solid ##C70039;
+        }
 
         .show-my-friends-btn {
             background-color: #f5bd3b;
             border: 1px solid #f5bd3b;
+        }
+
+        .comentar {
+            background-color: #2374e1;
+            border: 1px solid #2374e1;
         }
 
         .show-my-friends-btn:hover {
@@ -143,6 +152,34 @@
             color: #424242;
             padding: 10px;
         }
+
+        .texto-menor-10x {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            font-size: 14px;
+            line-height: 1.5;
+            max-width: 10em;
+        }
+
+            .texto-menor-10x .usuario {
+                font-weight: bold;
+                margin-bottom: 5px;
+               color: #808080
+            }
+
+            .texto-menor-10x .fecha {
+                color: #999;
+                font-size: 12px;
+                margin-bottom: 5px;
+            }
+
+            .texto-menor-10x .contenido {
+                margin-bottom: 5px;
+                font-style: italic;
+            }
+        
+       
     </style>
 </head>
 
@@ -164,7 +201,12 @@
                 <button class="new-post-btn" type="submit">Publicar</button>
         </form>
         </div>
+
+    
+
+
         <div class="friend-posts-container">
+
             @foreach (var item in Model)
             {
                 <div class="friend-post">
@@ -182,15 +224,24 @@
                     <span class="friend-post-date">
                         @Html.DisplayFor(modelItem => item.Fecha)
                     </span>
-                      <div class="friend-post-content">
-                        @Html.DisplayFor(modelItem => item.Comentarios)
+                @foreach (var comentario in item.Comentarios)
+                {
+
+
+                    <div class="texto-menor-10x">
+                        <span class="usuario"> @Html.DisplayFor(itemcomentario => comentario.Usuario.Nombre)</span>
+                        <span class="fecha">@Html.DisplayFor(itemcomentario => comentario.FechaComentario)</span>
+                        <p class="contenido">@Html.DisplayFor(itemcomentario => comentario.Contenido)</p>
                     </div>
+                   
+                    
+                }
                     
                         <form asp-controller="Comentarios" asp-action="CreateComment" method="post">
                    
                     <textarea id="ComentarioContent" name="ComentarioContent" placeholder="¿Quieres comentar el post de tu amigo?"></textarea>
                     <input name="postId" type="hidden" value="@Html.DisplayFor(modelItem => item.Id)" />
-                    <button class="new-post-btn" type="submit">Comentar</button>
+                    <button class="navbar-btn comentar" type="submit">Comentar</button>
                 </form>
                 </div>
             }
