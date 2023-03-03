@@ -155,6 +155,12 @@ namespace PaginaRedSocial.Data
                .HasData(
                new Post { Id = 1, Contenido = "post de Juan", Fecha = DateTime.Now, UserId = 2 }
                );
+            modelBuilder.Entity<TipoReaccion>().HasData(
+                new { Id = 1, Palabra = "Me gusta" },
+                new { Id = 2, Palabra = "Me encanta" },
+                new { Id = 3, Palabra = "Me divierte" },
+                new { Id = 4, Palabra = "Me entristece" }
+            );
         }
 
 

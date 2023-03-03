@@ -11,7 +11,7 @@ using PaginaRedSocial.Data;
 namespace PaginaRedSocial.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20230224233007_Initial")]
+    [Migration("20230304150349_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -75,7 +75,7 @@ namespace PaginaRedSocial.Migrations
                         {
                             Id = 1,
                             Contenido = "post de Juan",
-                            Fecha = new DateTime(2023, 2, 24, 20, 30, 6, 888, DateTimeKind.Local).AddTicks(7566),
+                            Fecha = new DateTime(2023, 3, 4, 12, 3, 49, 529, DateTimeKind.Local).AddTicks(4824),
                             UserId = 2
                         });
                 });
@@ -227,6 +227,28 @@ namespace PaginaRedSocial.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TipoReacciones", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Palabra = "Me gusta"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Palabra = "Me encanta"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Palabra = "Me divierte"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Palabra = "Me entristece"
+                        });
                 });
 
             modelBuilder.Entity("PaginaRedSocial.Models.Comentario", b =>

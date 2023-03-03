@@ -25,6 +25,9 @@ namespace PaginaRedSocial.Controllers
         public IActionResult Index()
         {
             List<Post> postAmigos = this.getPostsAmigos();
+            List<TipoReaccion> tipoReacciones = this._context.tiposReacciones.ToList();
+
+            ViewBag.TipoReacciones = tipoReacciones; 
 
             return View("/Views/Home/Usuarios/Index.cshtml", postAmigos);
         }
@@ -40,7 +43,9 @@ namespace PaginaRedSocial.Controllers
             List<Post> postsFiltrados = this._context.Posts
                                               .Include(p => p.user)
                                               .Include(p => p.Comentarios)
+                                              .Include(p => p.Reacciones)
                                               .Where(post => post.UserId != userId)
+                                              .OrderByDescending(s => s.Fecha)
                                               .ToList();
             foreach (Post post in postsFiltrados)
             {
@@ -48,7 +53,14 @@ namespace PaginaRedSocial.Controllers
                 {
                     if (post.UserId == usuarioAmigo.AmigoId)
                     {
-                        Console.WriteLine("postId:"+post.Id + " tiene " + post.Comentarios.Count);
+                        Reaccion existingReaction = post.Reacciones
+                                        .Where(reaction => reaction.PostId == post.Id)
+                                        .Where(reaction => reaction.UsuarioId == userId)
+                                        .FirstOrDefault();
+                        if (existingReaction != null)
+                        {
+                            post.MyReactionId = existingReaction.TipoReaccionId;
+                        }
                         postAmigos.Add(post);
                     }
                 }
@@ -91,7 +103,7 @@ namespace PaginaRedSocial.Controllers
             var userActual = this._context.Usuarios.Include(u => u.posts)
                             .Where(user => user.Id == int.Parse(@User.Identity.Name))
                             .FirstOrDefault();
-            return View("/Views/Home/MisPosts/Index.cshtml", userActual.posts.OrderBy(s => s.Fecha));
+            return View("/Views/Home/MisPosts/Index.cshtml", userActual.posts.OrderByDescending(s => s.Fecha));
         }
 
         [Authorize]

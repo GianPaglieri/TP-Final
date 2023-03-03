@@ -260,6 +260,52 @@ namespace PaginaRedSocial.Controllers
             return Redirect("/Home/MisPosts");
         }
 
+        public string SetReaction()
+        {
+            int postId = Int16.Parse(HttpContext.Request.Query["postId"].ToString());
+            int reactionId = Int16.Parse(HttpContext.Request.Query["reactionId"].ToString());
+            int fromUserId = Int16.Parse(HttpContext.Request.Query["fromUserId"].ToString());
+
+            User fromUser = this._context.Usuarios.Where(u => u.Id == fromUserId).FirstOrDefault();
+            Post post = this._context.Posts.Where(post => post.Id == postId)
+                                .Include(post => post.Reacciones)
+                                .FirstOrDefault();
+
+            Reaccion existingReaction = post.Reacciones
+                                        .Where(reaction => reaction.PostId == postId)
+                                        .Where(reaction => reaction.UsuarioId == fromUserId)
+                                        .FirstOrDefault();
+
+            if (existingReaction != null )
+            {
+                if (existingReaction.TipoReaccionId == reactionId)
+                {
+                    // Si el nuevo tipo de reacción es igual a la que ya existía
+                    // entonces se elimina la reacción
+                    post.Reacciones.Remove(existingReaction);
+                }
+                else
+                {
+                    // Si es distinta entonces solamente se cambia el tipo de reacción
+                    existingReaction.TipoReaccionId = reactionId;
+                }
+            }
+            else
+            {
+                // Si no existe la reacción entonces se agrega
+                Reaccion newReaccion = new Reaccion();
+                newReaccion.TipoReaccionId = reactionId;
+                newReaccion.User = fromUser;
+                newReaccion.Post = post;
+                post.Reacciones.Add(newReaccion);
+            }
+           
+            this._context.Posts.Update(post);
+            this._context.SaveChanges();
+
+            return "ok";
+        }
+
         public async Task<IActionResult> EditarPost()
         {
             string idQuery = HttpContext.Request.Query["id"].ToString();

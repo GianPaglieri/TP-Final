@@ -52,10 +52,8 @@ namespace PaginaRedSocial.Controllers
         }
         public IActionResult CreateComment(Microsoft.AspNetCore.Http.IFormCollection collection)
         {
-
-            Console.WriteLine("Entró a createComment: " + collection["ComentarioContent"]);
             int userId = int.Parse(@User.Identity.Name);
-            var userActual = this._context.Usuarios.Include(u => u.misAmigos)
+            var userActual = this._context.Usuarios
                 .Where(user => user.Id == userId)
                 .FirstOrDefault();
             Comentario newComment = new Comentario();
@@ -66,7 +64,7 @@ namespace PaginaRedSocial.Controllers
             this._context.comentarios.Add(newComment);
             this._context.SaveChanges();
 
-            return Redirect("/Home/MisPosts");
+            return Redirect("/Home");
         }
         // GET: Comentarios/Create
         public IActionResult Create()

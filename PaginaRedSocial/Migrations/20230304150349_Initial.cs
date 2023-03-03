@@ -206,6 +206,17 @@ namespace PaginaRedSocial.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.InsertData(
+                table: "TipoReacciones",
+                columns: new[] { "Id", "Palabra" },
+                values: new object[,]
+                {
+                    { 1, "Me gusta" },
+                    { 2, "Me encanta" },
+                    { 3, "Me divierte" },
+                    { 4, "Me entristece" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Usuarios",
                 columns: new[] { "Id", "Bloqueado", "Dni", "Email", "Intentos", "IsAdmin", "Nombre", "Password" },
                 values: new object[,]
@@ -217,7 +228,7 @@ namespace PaginaRedSocial.Migrations
             migrationBuilder.InsertData(
                 table: "Posts",
                 columns: new[] { "Id", "Contenido", "Fecha", "UserId" },
-                values: new object[] { 1, "post de Juan", new DateTime(2023, 2, 24, 20, 30, 6, 888, DateTimeKind.Local).AddTicks(7566), 2 });
+                values: new object[] { 1, "post de Juan", new DateTime(2023, 3, 4, 12, 3, 49, 529, DateTimeKind.Local).AddTicks(4824), 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comentarios_PostId",
