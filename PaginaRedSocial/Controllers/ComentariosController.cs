@@ -22,7 +22,7 @@ namespace PaginaRedSocial.Controllers
 
         // GET: Comentarios
        
-        public async Task<IActionResult> IndexViewBag()
+        public async Task<IActionResult> Index()
         {
             
             if (!this._context.Usuarios.Find(int.Parse(User.Identity.Name)).IsAdmin)
@@ -30,7 +30,7 @@ namespace PaginaRedSocial.Controllers
             var myContext = _context.comentarios.Include(c => c.Post).Include(c => c.Usuario);
             return View(await myContext.ToListAsync());
         }
-
+        
         // GET: Comentarios/Details/5
         public async Task<IActionResult> Details(int? id)
         {
