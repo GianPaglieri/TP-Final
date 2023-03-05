@@ -27,21 +27,53 @@ namespace PaginaRedSocial.Controllers
             List<Post> postAmigos = this.getPostsAmigos();
             List<TipoReaccion> tipoReacciones = this._context.tiposReacciones.ToList();
 
-            ViewBag.TipoReacciones = tipoReacciones; 
+            ViewBag.TipoReacciones = tipoReacciones;
 
             if (!String.IsNullOrEmpty(buscador))
             {
-                var posts = this._context.Posts.Include(u => u.user)
+                int userId = int.Parse(@User.Identity.Name);
+                var postsFiltrados = this._context.Posts
+                    .Include(u => u.user)
+                    .Include(p => p.Comentarios)
+                    .Include(p => p.Reacciones)
                     .Where(b => (b.Contenido!.Contains(buscador)) || (b.user.Nombre!.Contains(buscador)));
 
-                return View("/Views/Home/Usuarios/Index.cshtml", posts);
+                foreach (Post post in postsFiltrados)
+                {
+                    Reaccion existingReaction = post.Reacciones
+                                    .Where(reaction => reaction.PostId == post.Id)
+                                    .Where(reaction => reaction.UsuarioId == userId)
+                                    .FirstOrDefault();
+                    if (existingReaction != null)
+                    {
+                        post.MyReactionId = existingReaction.TipoReaccionId;
+                    }
+                }
+
+                return View("/Views/Home/Usuarios/Index.cshtml", postsFiltrados);
             }
-            else if (desdeF != null || hastaF != null) 
+            else if (desdeF != null || hastaF != null)
             {
-                var posts = this._context.Posts.Include(u => u.user)
+                int userId = int.Parse(@User.Identity.Name);
+                var postsFiltrados = this._context.Posts
+                    .Include(u => u.user)
+                    .Include(p => p.Comentarios)
+                    .Include(p => p.Reacciones)
                     .Where(b => (b.Fecha > desdeF) || (b.Fecha < hastaF));
 
-                return View("/Views/Home/Usuarios/Index.cshtml", posts);
+                foreach (Post post in postsFiltrados)
+                {
+                    Reaccion existingReaction = post.Reacciones
+                                    .Where(reaction => reaction.PostId == post.Id)
+                                    .Where(reaction => reaction.UsuarioId == userId)
+                                    .FirstOrDefault();
+                    if (existingReaction != null)
+                    {
+                        post.MyReactionId = existingReaction.TipoReaccionId;
+                    }
+                }
+
+                return View("/Views/Home/Usuarios/Index.cshtml", postsFiltrados);
             }
             else
             {

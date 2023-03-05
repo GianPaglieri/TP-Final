@@ -68,7 +68,7 @@ namespace PaginaRedSocial.Controllers
                 await _context.SaveChangesAsync();
                 _soundPlayer = new SoundPlayer("Resources/SuccessSound.wav");
                 _soundPlayer.Play();
-                return RedirectToAction(nameof(Index));
+                return Redirect("/Home");
             }
             return View(user);
         }
