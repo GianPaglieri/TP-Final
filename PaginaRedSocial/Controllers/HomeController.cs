@@ -22,11 +22,28 @@ namespace PaginaRedSocial.Controllers
         }
 
         [Authorize]
-        public IActionResult Index()
-        {
+        public async Task<IActionResult> Index(String buscador, DateTime? desdeF, DateTime? hastaF)
+        {;
             List<Post> postAmigos = this.getPostsAmigos();
 
-            return View("/Views/Home/Usuarios/Index.cshtml", postAmigos);
+            if (!String.IsNullOrEmpty(buscador))
+            {
+                var posts = this._context.Posts.Include(u => u.user)
+                    .Where(b => (b.Contenido!.Contains(buscador)) || (b.user.Nombre!.Contains(buscador)));
+
+                return View("/Views/Home/Usuarios/Index.cshtml", posts);
+            }
+            else if (desdeF != null || hastaF != null) 
+            {
+                var posts = this._context.Posts.Include(u => u.user)
+                    .Where(b => (b.Fecha > desdeF) || (b.Fecha < hastaF));
+
+                return View("/Views/Home/Usuarios/Index.cshtml", posts);
+            }
+            else
+            {
+                return View("/Views/Home/Usuarios/Index.cshtml", postAmigos);
+            }
         }
 
         private List<Post> getPostsAmigos()

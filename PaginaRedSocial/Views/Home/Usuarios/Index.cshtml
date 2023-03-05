@@ -143,10 +143,36 @@
             color: #424242;
             padding: 10px;
         }
+        .box {
+            margin: auto;
+        }
+
+        .mainSearch{
+            width: 80%;
+            margin:auto;
+        }
     </style>
 </head>
 
 <body>
+    <section class="search-sec mainSearch">
+        <div class="container">
+            <form method="post" asp-controller="Home" asp-action="Index">
+                <div class="row mb-3">
+                    <div class="col-lg-12">
+                        <div class="input-group">
+                            <span class="input-group-text">Desde</span>
+                            <input type="date" class="form-control" name="desdeF">
+                            <span class="input-group-text">Hasta</span>
+                            <input type="date" class="form-control" name="hastaF">
+                            <input type="text" class="form-control" name="buscador" placeholder="Contenido, usuario, etc">
+                            <button class="btn btn-success" type="submit"><i class="bi bi-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
         <div class="navbar-container">
         <a class="navbar-btn add-friends-btn" asp-controller="Home" asp-action="BuscarAmigos">
             Agregar amigos
