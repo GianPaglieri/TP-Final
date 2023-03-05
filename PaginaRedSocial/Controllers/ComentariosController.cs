@@ -22,7 +22,7 @@ namespace PaginaRedSocial.Controllers
 
         // GET: Comentarios
        
-        public async Task<IActionResult> IndexViewBag()
+        public async Task<IActionResult> Index()
         {
             
             if (!this._context.Usuarios.Find(int.Parse(User.Identity.Name)).IsAdmin)
@@ -30,7 +30,7 @@ namespace PaginaRedSocial.Controllers
             var myContext = _context.comentarios.Include(c => c.Post).Include(c => c.Usuario);
             return View(await myContext.ToListAsync());
         }
-
+        
         // GET: Comentarios/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -52,10 +52,8 @@ namespace PaginaRedSocial.Controllers
         }
         public IActionResult CreateComment(Microsoft.AspNetCore.Http.IFormCollection collection)
         {
-
-            Console.WriteLine("Entró a createComment: " + collection["ComentarioContent"]);
             int userId = int.Parse(@User.Identity.Name);
-            var userActual = this._context.Usuarios.Include(u => u.misAmigos)
+            var userActual = this._context.Usuarios
                 .Where(user => user.Id == userId)
                 .FirstOrDefault();
             Comentario newComment = new Comentario();
@@ -66,7 +64,7 @@ namespace PaginaRedSocial.Controllers
             this._context.comentarios.Add(newComment);
             this._context.SaveChanges();
 
-            return Redirect("/Home/MisPosts");
+            return Redirect("/Home");
         }
         // GET: Comentarios/Create
         public IActionResult Create()

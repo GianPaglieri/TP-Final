@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Reflection.Metadata;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PaginaRedSocial.Models
 {
@@ -25,6 +28,8 @@ namespace PaginaRedSocial.Models
         public ICollection<Tag> Tags { get; set; } = new List<Tag>();
         public List<PostTag> PostTags { get; set; }
 
+        [NotMapped]
+        public int MyReactionId { get; set; }
         public Post() { }
     }
 }

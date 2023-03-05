@@ -44,10 +44,19 @@
             background-color: #72cb88;
             border: 1px solid #72cb88;
         }
+        .comentar-btn:hover {
+            background-color: ##C70039;
+            border: 1px solid ##C70039;
+        }
 
         .show-my-friends-btn {
             background-color: #f5bd3b;
             border: 1px solid #f5bd3b;
+        }
+
+        .comentar {
+            background-color: #2374e1;
+            border: 1px solid #2374e1;
         }
 
         .show-my-friends-btn:hover {
@@ -151,7 +160,86 @@
             width: 80%;
             margin:auto;
         }
-    </style>
+        .texto-menor-10x {
+            padding-left: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            font-size: 14px;
+            line-height: 1.5;
+            max-width: 10em;
+        }
+
+        .texto-menor-10x .usuario {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #808080
+        }
+
+        .texto-menor-10x .fecha {
+            color: #999;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .texto-menor-10x .contenido {
+            margin-bottom: 5px;
+            font-style: italic;
+        }
+        
+        .reactions-container{
+            padding: 10px;
+            border-top: 1px solid #f2f2f2;
+            border-bottom: 1px solid #f2f2f2;
+            display: flex;
+            flex-direction: row;
+            flex: 1;
+            justify-content: space-evenly;
+        }
+
+        .reaction-item{
+            user-select:none;
+            text-align: center;
+            flex: 1;
+            border-left: 1px solid #f2f2f2;
+            border-right: 1px solid #f2f2f2;
+        }
+        .reaction-item:hover{
+            cursor: pointer;
+        }
+
+        .like-icon:hover {
+            color: #1a63f4;
+        }
+
+        .love-it-icon:hover {
+            color: #e81d38;
+        }
+
+        .happy-icon:hover {
+            color: #fbcd5b;
+        }
+
+        .sad-icon:hover {
+            color: #f36f22;
+        }
+
+        .like-icon-active {
+            color: #1a63f4;
+        }
+
+        .love-it-icon-active {
+            color: #e81d38;
+        }
+
+        .happy-icon-active {
+            color: #fbcd5b;
+        }
+
+        .sad-icon-active {
+            color: #f36f22;
+        }
+</style>
 </head>
 
 <body>
@@ -190,10 +278,11 @@
                 <button class="new-post-btn" type="submit">Publicar</button>
         </form>
         </div>
+
         <div class="friend-posts-container">
             @foreach (var item in Model)
             {
-                <div class="friend-post">
+                <div id="post-id-@item.Id" class="friend-post">
                     <div class="friend-information">
                         <img class="profile-image-friend" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" />
                         <span class="friend-name">
@@ -208,18 +297,128 @@
                     <span class="friend-post-date">
                         @Html.DisplayFor(modelItem => item.Fecha)
                     </span>
-                      <div class="friend-post-content">
-                        @Html.DisplayFor(modelItem => item.Comentarios)
+
+                    <div class="reactions-container">
+                        @foreach (var tipoReaccion in ViewBag.TipoReacciones)
+                        {
+                            @switch (tipoReaccion.Id)
+                            {
+                                case 1:
+                                <div class="reaction-item like-icon @((item.MyReactionId == 1) ? "like-icon-active" : "")"
+                     id="post-reaction-@item.Id-@tipoReaccion.Id"
+                                onclick="setReaction(@item.Id,@tipoReaccion.Id,@User.Identity.Name)">
+                                        <span class="material-icons edit-icon">
+                                            thumb_up
+                                        </span>
+                                        <div>
+                                            @tipoReaccion.Palabra
+                                        </div>
+                                    </div>
+                                    break;
+                                case 2:
+                                <div class="reaction-item love-it-icon @((item.MyReactionId == 2) ? "love-it-icon-active" : "")"
+                     id="post-reaction-@item.Id-@tipoReaccion.Id"
+                     onclick="setReaction(@item.Id,@tipoReaccion.Id,@User.Identity.Name)">
+                                        <span class="material-icons edit-icon">
+                                            favorite
+                                        </span>
+                                        <div>
+                                            @tipoReaccion.Palabra
+                                        </div>
+                                    </div>
+                                    break;
+                                case 3:
+                                <div class="reaction-item happy-icon @((item.MyReactionId == 3) ? "happy-icon-active" : "")"
+                     id="post-reaction-@item.Id-@tipoReaccion.Id"
+                     onclick="setReaction(@item.Id,@tipoReaccion.Id, @User.Identity.Name)">
+                                        <span class="material-icons edit-icon">
+                                            mood
+                                        </span>
+                                        <div>
+                                            @tipoReaccion.Palabra
+                                        </div>
+                                    </div>
+                                    break;
+                                case 4:
+                                <div class="reaction-item sad-icon @((item.MyReactionId == 4) ? "sad-icon-active" : "")"
+                     id="post-reaction-@item.Id-@tipoReaccion.Id"
+                     onclick="setReaction(@item.Id,@tipoReaccion.Id, @User.Identity.Name)">
+                                        <span class="material-icons edit-icon">
+                                            mood_bad
+                                        </span>
+                                        <div>
+                                            @tipoReaccion.Palabra
+                                        </div>
+                                    </div>
+                                    break;
+                            }
+                                
+                        }
                     </div>
+
+                    @foreach (var comentario in item.Comentarios)
+                    {
+                        <div class="texto-menor-10x">
+                            <span class="usuario"> @Html.DisplayFor(itemcomentario => comentario.Usuario.Nombre)</span>
+                            <span class="fecha">@Html.DisplayFor(itemcomentario => comentario.FechaComentario)</span>
+                            <p class="contenido">@Html.DisplayFor(itemcomentario => comentario.Contenido)</p>
+                        </div>
+                    }
                     
-                        <form asp-controller="Comentarios" asp-action="CreateComment" method="post">
-                   
-                    <textarea id="ComentarioContent" name="ComentarioContent" placeholder="¿Quieres comentar el post de tu amigo?"></textarea>
-                    <input name="postId" type="hidden" value="@Html.DisplayFor(modelItem => item.Id)" />
-                    <button class="new-post-btn" type="submit">Comentar</button>
-                </form>
+                    <form asp-controller="Comentarios" asp-action="CreateComment" method="post">
+                        <textarea id="ComentarioContent" name="ComentarioContent" placeholder="¿Quieres comentar el post de tu amigo?"></textarea>
+                        <input name="postId" type="hidden" value="@Html.DisplayFor(modelItem => item.Id)" />
+                        <button class="navbar-btn comentar" type="submit">Comentar</button>
+                    </form>
                 </div>
             }
         </div>
+    <script type="text/javascript">
 
+        function setReaction(postId, reactionId, userId){
+            const fullLocation = `${location.protocol}//${location.host}`;
+            const url = `${fullLocation}/Posts/SetReaction?postId=${postId}&reactionId=${reactionId}&fromUserId=${userId}`;
+            
+            fetch(url)
+            // Exito
+            .then(response => {
+            console.log("response", response);
+                     const postItem = document.getElementById(`post-id-${postId}`);
+             const postReactionItems = postItem.getElementsByClassName('reaction-item');
+             for (let x = 0; x < postReactionItems.length; x++) {
+                 const activeClass = containsActiveIcon(postReactionItems[x].classList.value);
+                 if(activeClass){
+                     postReactionItems[x].classList.remove(activeClass);
+                 }else{
+                     const reactionTypeId = parseInt(postReactionItems[x].id.split('-')[3]);
+                     if (reactionTypeId === reactionId) {
+                         switch (reactionId) {
+                             case 1:
+                                 postReactionItems[x].classList.add("like-icon-active");
+                                 break;
+                             case 2:
+                                 postReactionItems[x].classList.add("love-it-icon-active");
+                                 break;
+                             case 3:
+                                 postReactionItems[x].classList.add("happy-icon-active");
+                                 break;
+                             case 4:
+                                 postReactionItems[x].classList.add("sad-icon-active");
+                                 break;
+                         }
+                     }
+                 }
+             }
+            })  // convertir a json
+            .then(json => console.log(json))    //imprimir los datos en la consola
+            .catch(err => console.log('Solicitud fallida', err)); // Capturar errores
+        }
+
+        function containsActiveIcon(valueClass){
+            const classes = valueClass.split(' ');
+            const result = classes.some(clase => clase.includes('active'));
+            // En la posición 2 se encuentra la clase active
+            return result ? classes[2] : false;
+        }
+    </script>
 </body>
