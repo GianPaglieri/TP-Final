@@ -66,11 +66,19 @@ namespace PaginaRedSocial.Controllers
                 user.Password = Utils.Encriptar(user.Password);
                 _context.Add(user);
                 await _context.SaveChangesAsync();
+
+            }
+
+            if (@User.Identity.Name != null)
+            {
+                return Redirect("/Users");
+            }
+            else
+            {
                 _soundPlayer = new SoundPlayer("Resources/SuccessSound.wav");
                 _soundPlayer.Play();
                 return Redirect("/Home");
             }
-            return View(user);
         }
 
         // GET: Users/Edit/5

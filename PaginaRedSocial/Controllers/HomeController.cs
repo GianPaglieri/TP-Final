@@ -23,7 +23,11 @@ namespace PaginaRedSocial.Controllers
 
         [Authorize]
         public async Task<IActionResult> Index(String buscador, DateTime? desdeF, DateTime? hastaF)
-        {;
+        {
+            if(int.Parse(@User.Identity.Name) == 1) {
+                return Redirect("/Users");
+            }
+
             List<Post> postAmigos = this.getPostsAmigos();
             List<TipoReaccion> tipoReacciones = this._context.tiposReacciones.ToList();
 

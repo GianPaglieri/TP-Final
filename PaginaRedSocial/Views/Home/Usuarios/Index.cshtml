@@ -382,8 +382,8 @@
             fetch(url)
             // Exito
             .then(response => {
-            console.log("response", response);
-                     const postItem = document.getElementById(`post-id-${postId}`);
+
+             const postItem = document.getElementById(`post-id-${postId}`);
              const postReactionItems = postItem.getElementsByClassName('reaction-item');
              for (let x = 0; x < postReactionItems.length; x++) {
                  const activeClass = containsActiveIcon(postReactionItems[x].classList.value);
